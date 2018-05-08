@@ -54,7 +54,15 @@ Complete the 'Learn the Basics' section of the C tutorial. If you are a C expert
 
 http://www.learn-c.org/
 
+## More resources to help
+
+- If you are not comfortable with compiling, take a look at this resource: https://www.cs.fsu.edu/~myers/howto/g++compiling.txt
+- Hackerrank has an excellent series of shell tutorials here: https://www.hackerrank.com/domains/shell/bash
+  - I highly recommend going through them if you are not comfortable with the shell.
+
 ## Deliverable
 
 * Copy and Paste the output of you running several terminal commands above into a file called "output" (no capitalization, no file extension, exactly as named.)
 * Create a file called 'main.c' in your respository. This program should take a user specified input for a 'starting' integer and a 'ending' integer and count from the start to the stop and then exit.
+
+
