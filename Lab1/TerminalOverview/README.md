@@ -46,7 +46,15 @@ In fact, calling each of these 'commands' is not correct. Each of these is itsel
 As an example, here is the source code for 'ls': http://git.savannah.gnu.org/cgit/coreutils.git/tree/src/ls.c
 Each of these commands are part of the coreutils package in Unix. If you look through the source tree, you will additionally find many other programs (i.e. terminal commands you run in your shell) here: http://git.savannah.gnu.org/cgit/coreutils.git/tree/src/.
 
+## Part 3 - Learn-C
+
+The main programming language we will be using in this course is "C".
+
+Complete the 'Learn the Basics' section of the C tutorial. If you are a C expert, then you can move onto the deliverables section.
+
+http://www.learn-c.org/
 
 ## Deliverable
 
-* Copy and Paste the output of your commands above into a file called "output" (no capitalization, no file extension, exactly as named.)
+* Copy and Paste the output of you running several terminal commands above into a file called "output" (no capitalization, no file extension, exactly as named.)
+* Create a file called 'main.c' in your respository. This program should take a user specified input for a 'starting' integer and a 'ending' integer and count from the start to the stop and then exit.
