@@ -2,11 +2,13 @@
 
 "Name 10 terminal commands"
 
-That was a prompt I was given when interviewing for LinkedIn. It's not that you should memorize 10 terminal commands, but rather you should understand that working on the terminal is an essential skill.
+That was a prompt I was given when interviewing for LinkedIn several years ago, and that was not the first time someone had asked me about the terminal at an interview! It's not that you should memorize 10 terminal commands, but rather you should understand that working on the terminal is an essential skill.
 
 In this lab, you are going to perform a few terminal commands to get familiar with the Unix Environment.
 
 ## Part 0 - Obtain the mono repo
+
+Make sure you have accepted the invitation to the monorepo from the main course page.
 
 Run through the following github tutorial if you are not familiar with git.
 
@@ -63,6 +65,8 @@ http://www.learn-c.org/
 ## Deliverable
 
 * Copy and Paste the output of you running several terminal commands above into a file called "output" (no capitalization, no file extension, exactly as named.)
+  * Make sure to 'commit' this file to the repo.
 * Create a file called 'main.c' in your respository. This program should take a user specified input for a 'starting' integer and a 'ending' integer and count from the start to the stop and then exit.
+  * Make sure to 'commit' this file to the repo.
 
 
