@@ -10,7 +10,7 @@ The tutorial can be purely text, and you should upload a file called 'tutorial.t
 ## Very Brief Example Tutorial (Template)
 (Note this example is fairly trivial)
 
-* Problem Statement: "Often I have to navigate to different directories within my computer system. In order to do this I use the 'ls' command.
+* Problem Statement: "Often I have to search for different files and directories within my computer system. In order to do this I use the 'ls' command to help orient myself.
 * Name of command: ls
 * Example of its usage: 
 ```
