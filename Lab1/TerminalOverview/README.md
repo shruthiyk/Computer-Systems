@@ -36,7 +36,7 @@ Try running the followng commands.
 2. mkdir
 3. cd
 4. man
-5 rmdir
+5. rmdir
 6. sort
 7. cat
 8. nl
