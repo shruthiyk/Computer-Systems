@@ -1,4 +1,4 @@
-# Due Date: May 15, 2018 at midnight.
+# Due Date: May 16, 2018 at midnight.
 # Automate (some of) your life
 
 Getting familiar with the terminal is a fundamental skill to have. Many of you have various levels of experience using the terminal.
