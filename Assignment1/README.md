@@ -35,5 +35,4 @@ ls | wc -l
   - (If you decided you were doing something so cool it had to be longer, was this well justife)
 - 33.3% Was the tutorial well polished, did something useful, and did not contain any bugs?
 - 33.3% Was the writing presented in a clear manner in your own voice (i.e. I should not be able to Google it).
-
-# Going Further
+- (Please indicate in your submission at the top if these tutorials can be shared on our piazza board)
