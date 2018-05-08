@@ -32,7 +32,8 @@ ls | wc -l
 # Rubric
 
 - 33.3% Was your tutorial 1-2 pages
-- 33.3% Was it well polished and well-written
-- 33.3% Was it presented in a clear manner in your own voice (i.e. I should not be able to Google it).
+  - (If you decided you were doing something so cool it had to be longer, was this well justife)
+- 33.3% Was the tutorial well polished, did something useful, and did not contain any bugs?
+- 33.3% Was the writing presented in a clear manner in your own voice (i.e. I should not be able to Google it).
 
 # Going Further
