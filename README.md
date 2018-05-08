@@ -1,5 +1,8 @@
 # Monorepo
 
+# Partners Spreadsheet
+Find your partner here: https://docs.google.com/spreadsheets/d/1UIv3AtPjgS39Vt36m0xopBSI5CyDQkq27yzc4c3vyhI/edit?usp=sharing
+
 # Your name here (TODO: Change this heading to your name)
 
 Welcome to Computer Systems!
