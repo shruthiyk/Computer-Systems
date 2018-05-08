@@ -5,6 +5,8 @@ Getting familiar with the terminal is a fundamental skill to have. Many of you h
 
 For this assignment, you will be warming up by writing a 1-2 page tutorial on how to use the terminal to do something non-trivial on the command line by building a shell script. An example of a non-trivial script would be a few lines of code that sorts a particular column of data from a .csv file. You can use your imagination to continue further.
 
+The tutorial can be purely text, and you should upload a file called 'tutorial.txt'. I *strongly* encourage you to use a tool like 'vim', 'emacs', or 'nano' to write your tutorial. I personally use the vim text editor.
+
 ## Very Brief Example Tutorial (Template)
 (Note this example is fairly trivial)
 
