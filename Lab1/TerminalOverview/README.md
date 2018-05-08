@@ -32,16 +32,16 @@ The first thing you are going to need to do is learn how to SSH.
 
 Try running the followng commands.
 
-* ls
-* mkdir
-* cd
-* man
-* rmdir
-* sort
-* cat
-* nl
-* cut
-* grep
+1. ls
+2. mkdir
+3. cd
+4. man
+5 rmdir
+6. sort
+7. cat
+8. nl
+9. cut
+10. grep
 
 In fact, calling each of these 'commands' is not correct. Each of these is itself a program (typically implemented in C).
 
