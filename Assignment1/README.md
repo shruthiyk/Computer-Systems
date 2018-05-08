@@ -36,3 +36,4 @@ ls | wc -l
 - 33.3% Was the tutorial well polished, did something useful, and did not contain any bugs?
 - 33.3% Was the writing presented in a clear manner in your own voice (i.e. I should not be able to Google it).
 - (Please indicate in your submission at the top if these tutorials can be shared on our piazza board)
+- (The very brief tutorial example I gave would probably earn a C- at best :) Go beyond!)
