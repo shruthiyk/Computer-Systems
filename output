@@ -1,0 +1,101 @@
+shruthi@shruthi-VirtualBox:~$ cd Desktop
+shruthi@shruthi-VirtualBox:~/Desktop$ ls
+animals      ex1  ex5          home             new            third
+datecap      ex2  ex6          hw02-status.txt  output         webdev
+datecp.save  ex3  fingerprint  main             second.tar.gz
+efg          ex4  hello.c      main.c           task2
+shruthi@shruthi-VirtualBox:~/Desktop$ gedit main
+shruthi@shruthi-VirtualBox:~/Desktop$ gedit main.c
+shruthi@shruthi-VirtualBox:~/Desktop$ gcc -o main main.c
+shruthi@shruthi-VirtualBox:~/Desktop$ main
+Enter the starting number:3
+Enter the ending number:7
+3
+ 4
+ 5
+ 6
+ 7
+
+ shruthi@shruthi-VirtualBox:~/Desktop$ gedit new
+shruthi@shruthi-VirtualBox:~/Desktop$ clear
+
+shruthi@shruthi-VirtualBox:~/Desktop$ ls
+animals      ex1  ex5          home             new            third
+datecap      ex2  ex6          hw02-status.txt  output         webdev
+datecp.save  ex3  fingerprint  main             second.tar.gz
+efg          ex4  hello.c      main.c           task2
+shruthi@shruthi-VirtualBox:~/Desktop$ mkdir newdir
+shruthi@shruthi-VirtualBox:~/Desktop$ cd newdir
+shruthi@shruthi-VirtualBox:~/Desktop/newdir$ touch file1
+shruthi@shruthi-VirtualBox:~/Desktop/newdir$ touch file2
+shruthi@shruthi-VirtualBox:~/Desktop/newdir$ ls
+file1  file2
+shruthi@shruthi-VirtualBox:~/Desktop/newdir$ rm file2
+shruthi@shruthi-VirtualBox:~/Desktop/newdir$ ls
+file1
+shruthi@shruthi-VirtualBox:~/Desktop/newdir$ ls
+file1
+shruthi@shruthi-VirtualBox:~/Desktop/newdir$ cd ..
+shruthi@shruthi-VirtualBox:~/Desktop$ ls
+animals      ex1  ex5          home             new            task2
+datecap      ex2  ex6          hw02-status.txt  newdir         third
+datecp.save  ex3  fingerprint  main             output         webdev
+efg          ex4  hello.c      main.c           second.tar.gz
+shruthi@shruthi-VirtualBox:~/Desktop$ rmdir newdir
+rmdir: failed to remove 'newdir': Directory not empty
+shruthi@shruthi-VirtualBox:~/Desktop$ cd newdir
+shruthi@shruthi-VirtualBox:~/Desktop/newdir$ ls
+file1
+shruthi@shruthi-VirtualBox:~/Desktop/newdir$ rm file1
+shruthi@shruthi-VirtualBox:~/Desktop/newdir$ cd ..
+shruthi@shruthi-VirtualBox:~/Desktop$ rmdir newdir
+shruthi@shruthi-VirtualBox:~/Desktop$ vi animals
+shruthi@shruthi-VirtualBox:~/Desktop$ touch
+touch: missing file operand
+Try 'touch --help' for more information.
+shruthi@shruthi-VirtualBox:~/Desktop$ touch animals
+shruthi@shruthi-VirtualBox:~/Desktop$ vi animals
+shruthi@shruthi-VirtualBox:~/Desktop$ sort animals
+
+anteater
+elephant
+rabbit
+walrus
+zebra
+
+shruthi@shruthi-VirtualBox:~/Desktop$ cat animals
+rabbit
+elephant
+anteater
+zebra
+walrus
+
+
+shruthi@shruthi-VirtualBox:~$ grep zebra /home/shruthi/Desktop/animals
+zebra
+
+shruthi@shruthi-VirtualBox:~/Desktop$ nl animals
+     1	rabbit
+     2	elephant
+     3	anteater
+     4	zebra
+     5	walrus
+
+
+shruthi@shruthi-VirtualBox:~/Desktop$ cat animals
+rabbit
+elephant
+anteater
+zebra
+walrus
+
+
+
+shruthi@shruthi-VirtualBox:~/Desktop$ cut -c 3-5 animals
+bbi
+eph
+tea
+bra
+lru
+
+
