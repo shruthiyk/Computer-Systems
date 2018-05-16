@@ -1,0 +1,50 @@
+#!/bin/bash
+#Assignment 1 - Tutorial on using commands in a shell script 
+
+echo "Below is the list of files on the path that you have specified. 
+The list shows the recent most updated files first" 
+
+echo "-------------------------------------------"
+
+ls -t /home/shruthi/Desktop/  # specify the respective path
+
+echo "-------------------------------------------"
+
+echo " do you want to list only the executable files? y/n : "
+
+read input 
+
+if [ "$input" = "y" ] ; then 
+
+ls -F | grep '*$' 
+
+else 
+
+exit
+
+fi
+
+echo "enter a file name: " 
+
+read filename 
+
+	if [ -f "$filename" ] && [ -s "$filename" ]; then
+
+	for var in $(cat $filename)
+
+	do 
+
+	echo " $var"
+
+	done 
+
+	else 
+	
+	echo " the file is empty"
+
+fi
+
+
+
+
+
