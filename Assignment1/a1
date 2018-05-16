@@ -9,19 +9,11 @@ ls -t ~  # specify the respective path
 
 echo "-------------------------------------------"
 
-echo " Do you want to see files that belong to this owner ? y/n :"
+echo " Kindly enter the name of the owner whose files that you want to see: "
 
 read input
 
-if [ "$input" = "y" ] ; then
-
-ls -l 
-
-else
-
-echo " you can continue to see only the executable files"
-
-fi
+ls -l | grep "$input"
 
 echo " Do you want to see only the executable files? y/n" 
 
