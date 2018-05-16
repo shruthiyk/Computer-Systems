@@ -6,7 +6,8 @@ The list shows the recent most updated files first"
 
 echo "-------------------------------------------"
 
-ls -t /home/shruthi/Desktop/  # specify the respective path
+#ls -t /home/shruthiyk/cs5600  # specify the respective path
+ls -t ~  # specify the respective path
 
 echo "-------------------------------------------"
 
