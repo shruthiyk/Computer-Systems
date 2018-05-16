@@ -13,7 +13,9 @@ echo " Kindly enter the name of the owner whose files that you want to see: "
 
 read input
 
-ls -l | grep "$input"
+#ls -l | grep "$input"
+
+find -user "$input" -ls
 
 echo " Do you want to see only the executable files? y/n" 
 
