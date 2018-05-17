@@ -1,15 +1,17 @@
+
 This is a tutorial to explain some commands used in shell script
-The commands are explained with an example where we try to solve a non-trivial but a simple problem statement. 
+The commands are explained with an example each. There is small script at the end which is an attempt to include a couple of search tasks to automate the file search process. 
 
-Below is the script and explaination of each command following the command used
 
-Following is the list of other commands with explaination and examples ,used in this program:
+Following is the list of commands with explaination and examples ,used in this program:
 1. # !/bin/bash specifies that the command should be always run in bash, 
   even though this line starts with '#' which comments the line, it is an excpetion here. 
 
-2. # is used to comment any line. Hence the above line is not executed i.e the content does not appear on the shell when script is executed.
+2. # is used to comment any line. anything written against # will not be executed when the program is run nor be displayed on the terminal.
+example: # this is an example script
+         # 2+2
 
-3. echo : this command is used to print any content on the terminal when the program is executed. Echo is used multiple times in this program to print the content whenever necessary.
+3. echo : this command is used to print any content on the terminal. Echo is used multiple times in this program to print the content whenever necessary.
 example:  echo "hello"
 output :  hello 
 
@@ -20,16 +22,21 @@ output : all the files will be listed in alphabetical order (by default)
 5. variation(s) of ls :
 ls -t " path" : 
 path refers to any path or directory that the user specifies.
-this command list the files sorted in order when they were modified, the most recently updated files appears first and so on...
+this command lists the files sorted by latest modification date, most recently updated files appear first and so on...
 
-ls -F | grep '*$' : this command list only the executable files
+ls -F | grep '*$' : this command lists only the executable files
+*$ indicates any files that are executable 
 
 6. grep: This command is used to find the specified pattern in the given file
 example : grep -i apple fruits.text 
 output :finds apple in the fruits file (-i indicates case insensitve)
 
-7. read: this command reads the one line from the standard input and assigns it to a variable 
-example : read input 
+7. read: this command reads one line from the standard input and assigns it to a variable 
+example :echo " enter your favorite color:" 
+                read input 
+		echo "$input" 
+output: enter your favorite color : yellow
+        yellow
 
 8. if : this command checks whether the condition is met or not and executes any command that satisfies the condition
 if [condition] 
@@ -43,12 +50,9 @@ example: if [ -z "$String" ]
 	 echo "string is not empty"
 output: string is empty ( if the condition is met)
 
-9. for: this command iterates through the resultant list once for each member
-example :for i in 'seq 1 20'
-	do
-echo $i
-	done 
-output: 1 2 3 .......20
+9. find : searches the directories for the mentioned option
+example :find . -type f -empty 
+output: searches and displays the list of files which are empty 
 
 10. $parameter: this command prints the value assigned to the parameter 
 example :for i in 'seq 1 20'
@@ -64,7 +68,8 @@ example : cat animals
 output: 
 cat 
 dog 
-elephant
+elephant 
+
 
 12. && : is AND operator , this runs command two only if command one is executed succesfully
 example: 
@@ -74,56 +79,60 @@ else
 	exit
 output : hi ( if the first condition is met and then the second one too)
 
-----explaination of the program
+-------------------------------------------------------------------------------------------------------------------------
+Script and it's explaination: kindly read through the comments while understanding the script. Refer to the above
+mentioned commands again. Also refer man pages for more details on each command. 
 
-#!/bin/bash 
+link to man page: https://linux.die.net/man/1/find for find command. 
+use the website to find out more about other commands too.  
+or 
+type man (command name) on the terminal
+example: man find
+-------------------------------------------------------------------------------------------------------------------------
 
-#Assignment 1 - Tutorial on using commands in a shell script 
+#!/bin/bash
+#assignment 1 - Tutorial on using commands in a shell script 
 
-echo "Below is the list of files on the path that you have specified. 
-The list shows the recent most updated files first" 
+echo "Below is the list of files on the system"
 
 echo "-------------------------------------------"
 
-ls -t /home/shruthi/Desktop/ # specify the respective path
+ls ~ # lists the files in the root 
 
 echo "-------------------------------------------"
 
-echo " do you want to list only the executable files? y/n : "  # prompt for user input
+echo " Kindly enter the name of the owner whose files that you want to see: "  # prompts the user to enter the name
 
 read input  # reads the standard input provided by the user
 
-if [ "$input" = "y" ] ; then  # checks whether the user entered yes
+find -user "$input" -ls  # finds and displays files owned by the specified user
 
-ls -F | grep '*$'   # prints only executable files to terminal
+echo " Do you want to see only the executable files? y/n" # prompts the users for yes(y) or no(n) 
 
-else 
+read input2 
 
-exit # if no exist the program
+if [ "$input2" = "y" ] ; then  # checks whether the condition holds good and executes the next statement if it matches the input provided in the line above
 
-fi
+ls -F | grep '*$'    # lists all the executable files
 
-echo "enter a file name: "   # prompts the user to input any of the file name from the list
+else        
 
-read filename # takes the file name
+exit        # if the condition does not match then exit
 
-	if [ -f "$filename" ] && [ -s "$filename" ]; then # if it's file and the size is not zero 
+fi	    # end if
 
-	for var in $(cat $filename)
+echo "enter a file name to see the content: " 
 
-	do 
+read filename
 
-	echo " $var"   # prints the content ( variable in each line)
+        if [ -e "$filename" ] && [ -s "$filename" ] ; then    # compares two conditions. if the file exists and the file size is > 0 then go to next command
 
-	done 
-	
-	else 
-	
-	echo " the file is empty"  # if file is empty then prints this line
+        cat $filename    # prints the content of the file that the user specified.
 
-fi
+        else
 
-Following is the explaination of each command used in the script above.
+        echo "the file does not exists or is empty"  # if the conditions fails this statement is printed on the terminal
 
+        fi   # end if 
 
-
+# by default the program exits

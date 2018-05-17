@@ -5,15 +5,13 @@ echo "Below is the list of files on the system"
 
 echo "-------------------------------------------"
 
-ls -t ~  # specify the respective path
+ls ~  # specify the respective path
 
 echo "-------------------------------------------"
 
 echo " Kindly enter the name of the owner whose files that you want to see: "
 
 read input
-
-#ls -l | grep "$input"
 
 find -user "$input" -ls
 
