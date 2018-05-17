@@ -21,7 +21,9 @@ read input2
 
 if [ "$input2" = "y" ] ; then
 
-ls -F | grep '*$'
+#ls -F | grep '*$'
+
+find . -executable -print
 
 else
 
