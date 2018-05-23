@@ -45,20 +45,6 @@ queue_t* create_queue(unsigned int _capacity){
 // Check if the queue is empty
 // Returns 1 if true (The queue is completely empty)
 // Returns 0 if false (the queue has more space available)
-/*int queue_empty(queue_t* q){
-      
-
-     if (q->size == 0)
-	{       
-		return 1;
-	}
-	
-        else 
-
-	return 0;
-
-} */ 
-
 
 
 int queue_empty(queue_t* q){
@@ -149,11 +135,8 @@ unsigned int queue_size(queue_t* q){
 // Removes a queue and all of its elements from memory.
 // This should be called before the proram terminates.
 void free_queue(queue_t* q){
-
 free(q->data);
 free(q);
-
-
 }
 
 
@@ -171,7 +154,7 @@ void unitTest1(){
 	queue_enqueue(test1,1);	
 	queue_enqueue(test1,1);	
 	queue_enqueue(test1,7);	
-	printf( " to check dequeue function\n");
+	printf("to check dequeue function\n");
 	printf("Removing: %d\n",queue_dequeue(test1));	
 
      	 
@@ -199,10 +182,6 @@ int main(){
 
 	// List of Unit Tests to test your data structure	
 	unitTest1();
-	unitTest2();
-	//queue_t* test2 = create_queue(2);
-	//queue_enqueue(test2,6);	
-	//queue_enqueue(test2,2);
-	
+	unitTest2();	
 	return 0;
 }
