@@ -31,13 +31,6 @@ queue_t* create_queue(unsigned int _capacity){
 	queue_t* myQueue = NULL;
         int size;
 	
-	myQueue =(queue_t*)malloc(sizeof(queue_t));
-	myQueue->capacity = _capacity;
-	myQueue->size = size = 0 ;
-	myQueue->front = 0;
-	myQueue->back =0;
-	myQueue->data = (int*)malloc(myQueue->capacity * sizeof(int));
-
 	if(_capacity == 0)
 	{
 	printf(" cannot create a queue of size 0 \n"); 
@@ -45,6 +38,14 @@ queue_t* create_queue(unsigned int _capacity){
 	}
 
 
+	myQueue =(queue_t*)malloc(sizeof(queue_t));
+	myQueue->capacity = _capacity;
+	myQueue->size = size = 0 ;
+	myQueue->front = 0;
+	myQueue->back =0;
+	myQueue->data = (int*)malloc(myQueue->capacity * sizeof(int));
+        	
+	
 	return myQueue;
 }
 
@@ -120,7 +121,7 @@ int queue_dequeue(queue_t *q){
 	q->front = (q->front +1)%q->capacity;
 	q->size = q->size -1 ;
 	return item;
-
+	
 }
 
 
@@ -164,7 +165,7 @@ void unitTest1(){
 	queue_enqueue(test1,7);	
 	printf("to check dequeue function\n");
 	printf("Removing: %d\n",queue_dequeue(test1));	
-
+        free_queue(test1);
 }
 
 void unitTest2(){
@@ -182,6 +183,7 @@ void unitTest2(){
 
 void unitTest3(){
 	queue_t* test3 = create_queue(0);
+	free_queue(test3);
 }
 
 
