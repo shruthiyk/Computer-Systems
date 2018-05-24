@@ -115,6 +115,7 @@ int queue_dequeue(queue_t *q){
 	if(queue_empty(q))
 	{
 	printf(" the queue is empty\n");
+	return -1;
 	}
 	
 	int item = q->data[q->front];
@@ -130,7 +131,11 @@ int queue_dequeue(queue_t *q){
 // A queue that has not been previously created will crash the program.
 // (i.e. A NULL q cannot return the size.)
 unsigned int queue_size(queue_t* q){
-	
+	if (q == NULL )
+	{
+		exit(1);
+	}
+
         int queueSize = q->size; 
         printf("\n queue size is %d\n " ,queueSize);
 	return queueSize;
