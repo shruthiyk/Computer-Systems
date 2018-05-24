@@ -8,7 +8,7 @@ TODO Please edit the following information in your assignment
 - Did you use any external resources? (Cite them below)  yes
   - C Programming Language - GeeksforGeeks
   - mycodeschool - DS videos
-- (Optional) What was your favorite part of the assignment?
+- (Optional): understanding concept
 - (Optional) How would you improve the assignment?
 
 
