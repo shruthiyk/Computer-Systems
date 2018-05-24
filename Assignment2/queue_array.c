@@ -38,6 +38,13 @@ queue_t* create_queue(unsigned int _capacity){
 	myQueue->back =0;
 	myQueue->data = (int*)malloc(myQueue->capacity * sizeof(int));
 
+	if(_capacity == 0)
+	{
+	printf(" cannot create a queue of size 0 \n"); 
+        exit(1);
+	}
+
+
 	return myQueue;
 }
 
@@ -106,12 +113,11 @@ int queue_dequeue(queue_t *q){
 	
 	if(queue_empty(q))
 	{
-	printf(" the queue is empty");
-	exit(EXIT_FAILURE);
+	printf(" the queue is empty\n");
 	}
 	
 	int item = q->data[q->front];
-	q->front = (q->front +1) % q->capacity;
+	q->front = (q->front +1)%q->capacity;
 	q->size = q->size -1 ;
 	return item;
 
@@ -150,14 +156,15 @@ void unitTest1(){
 	queue_enqueue(test1,15);	
 	queue_enqueue(test1,3);	
 	queue_enqueue(test1,6);	
+	printf("\n");
 	queue_size(test1);
+	printf("\n");
 	queue_enqueue(test1,1);	
 	queue_enqueue(test1,1);	
 	queue_enqueue(test1,7);	
 	printf("to check dequeue function\n");
 	printf("Removing: %d\n",queue_dequeue(test1));	
 
-     	 
 }
 
 void unitTest2(){
@@ -173,6 +180,10 @@ void unitTest2(){
 }
 
 
+void unitTest3(){
+	queue_t* test3 = create_queue(0);
+}
+
 
 
 // ====================================================
@@ -183,5 +194,6 @@ int main(){
 	// List of Unit Tests to test your data structure	
 	unitTest1();
 	unitTest2();	
+	unitTest3();
 	return 0;
 }
