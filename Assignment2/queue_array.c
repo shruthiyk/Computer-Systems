@@ -35,7 +35,7 @@ queue_t* create_queue(unsigned int _capacity){
 	myQueue->capacity = _capacity;
 	myQueue->size = size = 0 ;
 	myQueue->front = 0;
-	myQueue->back =-1;
+	myQueue->back =0;
 	myQueue->data = (int*)malloc(myQueue->capacity * sizeof(int));
 
 	return myQueue;
