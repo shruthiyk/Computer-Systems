@@ -95,10 +95,17 @@ int queue_enqueue(queue_t *q, int item){
 	
 	if(!queue_full(q))              
 	{	
-	q->back = (q->back + 1)%q->capacity; 
-	q->data[q->back] = item;
+	
 	q->size = q->size + 1;
-        printf(" added an item, %d\n" , item);
+        printf(" added an item in queue, %d\n" , item);
+         
+	if (q->back == q->capacity)
+	{
+		q->back =0;
+	}
+	q->data[q->back] = item;
+	q->back++; 
+
 	return 0;
 	}
 
@@ -112,15 +119,20 @@ int queue_enqueue(queue_t *q, int item){
 // removes an item from the queue.
 int queue_dequeue(queue_t *q){
 	
+	int item = 0;
 	if(queue_empty(q))
 	{
 	printf(" the queue is empty\n");
 	return -1;
 	}
 	
-	int item = q->data[q->front];
-	q->front = (q->front +1)%q->capacity;
+	item = q->data[q->front];
+	q->front++;
 	q->size = q->size -1 ;
+	if (q->front == q->capacity)
+{
+	q->front = 0;
+} 
 	return item;
 	
 }
