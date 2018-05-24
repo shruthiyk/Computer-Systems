@@ -2,12 +2,12 @@
 
 TODO Please edit the following information in your assignment
 
-- Name:
-- How many hours did it take you to complete this assignment?
-- Did you collaborate with any other students/TAs/Professors?
-- Did you use any external resources? (Cite them below)
-  - tbd
-  - tbd
+- Name: Shruthi Kulkarni
+- How many hours did it take you to complete this assignment? 8 hours
+- Did you collaborate with any other students/TAs/Professors? none
+- Did you use any external resources? (Cite them below)  yes
+  - C Programming Language - GeeksforGeeks
+  - mycodeschool - DS videos
 - (Optional) What was your favorite part of the assignment?
 - (Optional) How would you improve the assignment?
 
@@ -43,6 +43,33 @@ You *may* also consider writing some unit tests to test your implementation. You
 Queues are used quite a bit in operating systems and high performance systems, especially when performance matters. Do a little outside research, and edit test section of the Readme. Answer specifically: Why is a ring buffer useful and/or when should it be used?
 
 # TODO: Put your answer here
+
+Queue is a linear data structure.  The operations, Enqueue() ,Dequeue(), front() , isEmpty(), isFull() insert and remove one data at a time. Their time complexity is constant and is defined by O(1); 
+
+Queue has a certain limitations: 
+The data has to be inserted at one end and can be removed from the other end only. The allocation can be from either left or right but the rear and front end remain fixed once the memory is allocated for the queue array. 
+Since the size of the queue and the operations are fixed, there is a possibility of memory wastage. 
+Consider an example: say we fix the queue size to 5. add five elements, and delete two elements. 
+As per the data structure design and implementation, the elements are removed but the other elements do not shift towards the front end. 
+This causes two spaces to go unused. If it was integers, then 8 bytes remains unused until the entire queue is deleted. 
+
+The concept of Circular queue can be used to address the aboved mentioned problem.
+Circular queue is implementation of queue with rear and front end forming a loop instead of regular linear endings. This is just a logical implementation and the allocation of the meomory is always linear. 
+Circular queue is implemented as circular array concept. This is best suited when the maximum size for queue is fixed. For dynamic allocation LinkedList implementation is preferred.
+
+Some of the advantages of circular queue: 
+It is memory efficient. Because when the an element is deleted, it is utilized again when needed.
+Insertion and deletion are performed at constant time
+This has less memmory consumption.
+The memory of any deleted process can be used by a new process
+Buffering, rebuffering issue in multimedia is addressed using circular queue.
+Useful in multiprocess synchronization. Best example is Producer-Consumer problem.
+
+Cons:
+It is slightly difficult to implement circular queue than the linear queue.
+This is useful only when the maximum size for queue is fixed.
+
+
 
 # Resources to help
 
