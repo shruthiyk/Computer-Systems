@@ -158,7 +158,7 @@ free(q);
 void unitTest1(){
 
 	queue_t* test1 = create_queue(5);
-	printf("Attempting to add %d\n",10);
+	printf("Attempting to add %d\n",15);
 	queue_enqueue(test1,15);	
 	queue_enqueue(test1,3);	
 	queue_enqueue(test1,6);	
@@ -166,7 +166,7 @@ void unitTest1(){
 	queue_size(test1);
 	printf("\n");
 	queue_enqueue(test1,1);	
-	queue_enqueue(test1,1);	
+	queue_enqueue(test1,6);	
 	queue_enqueue(test1,7);	
 	printf("to check dequeue function\n");
 	printf("Removing: %d\n",queue_dequeue(test1));	
