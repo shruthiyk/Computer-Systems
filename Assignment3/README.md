@@ -64,7 +64,7 @@ There are a few interesting things with this program.
 
 # Part 2 - Assembly Sort
 
-Okay, now it is time to implement some assembly of our own! You are going to write some x86-64 with Intel AT&T syntax.
+Okay, now it is time to implement some assembly of our own! You are going to write some x86-64 with AT&T style syntax.
 
 The program you are going to write is a sort routine to sort some numerical data (You will sort the same 9 integers I have provided in the C function). As a template, this is the 'C Program' you will emulate. Save your program as *sort.s*
 
