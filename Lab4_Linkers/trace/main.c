@@ -13,5 +13,7 @@ int main(){
 		msg();
 	}
 
+//printf(" debug message %d \n",i);
+
 	return 0;
 }
