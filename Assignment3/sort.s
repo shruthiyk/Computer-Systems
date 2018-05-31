@@ -1,6 +1,8 @@
 .global _start
 
 .text
+# this program sorts the given array of integers using bubblesort
+
 
 sort:
 	pushq	%rbp
@@ -44,7 +46,7 @@ sort:
 	movl	-8(%rbp), %eax
 	cltq
 	addq	$1, %rax
-	leaq	0(,%rax,4), %rcx
+	leaq	0(,%rax,4), %rcx     
 	movq	-24(%rbp), %rax
 	addq	%rcx, %rax
 	movl	(%rax), %eax
@@ -73,10 +75,10 @@ sort:
 	nop
 	popq	%rbp
 	ret
-_start:
+_start:      # _start is like main function in C
 	pushq	%rbp
 	movq	%rsp, %rbp
-	subq	$48, %rsp
+	subq	$48, %rsp     #allocating space on stack for each integer in the                              array
 	movl	$116, -48(%rbp)
 	movl	$67, -44(%rbp)
 	movl	$69, -40(%rbp)
@@ -91,7 +93,6 @@ _start:
 	movq	%rax, %rdi
 	call	sort
 	movl	$0, -4(%rbp)
-	movl	$0, -4(%rbp)
 	jmp	.L8
 .L9:
 	leaq	-48(%rbp), %rax
@@ -101,8 +102,7 @@ _start:
 	addq	%rdx, %rax
 	movl	$4, %edx
 	movq	%rax, %rsi
-	movl	$1, %edi
-	#call	write
+	movl	$1, %edi     #syscall to print to the screen
 	mov 	$1, %rax
 	mov	$1, %rdi
 	mov 	$4, %rdx
@@ -113,7 +113,6 @@ _start:
 	jle	.L9
 	movl	$0, %eax
 	leave
-	#ret
-	mov	$60, %rax
+	mov	$60, %rax  #syscall to exit 
 	xor 	%rdi, %rdi
 	syscall
