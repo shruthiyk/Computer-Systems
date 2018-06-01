@@ -9,11 +9,9 @@ void msg(){
 int main(){
 
 	int i;
-	for(i= 0;i  < 10; ++i){
-		msg();
+	for(i=0; i<10; ++i){
+//		printf("Debug message %d \n",i+1);
+		 msg();
 	}
-
-//printf(" debug message %d \n",i);
-
-	return 0;
+		        		return 0;
 }
