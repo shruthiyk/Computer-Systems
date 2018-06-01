@@ -1,21 +1,22 @@
-.global _start
-
+.global _start # code segment 
 .text
 # this program sorts the given array of integers using bubblesort
 
 
 sort:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	movq	%rdi, -24(%rbp)
+	pushq	%rbp  # base pointer of the current stack frame 
+	movq	%rsp, %rbp  # rsp is the stack pointer for the current stack frame and points to the top of the stack, here since there is not data yet, we are setting the stack pointer to base pointer 			 	#location , both pointing to same location , initially, 
+	movq	%rdi, -24(%rbp)  # index pointers for array
 	movl	%esi, -28(%rbp)
-	movl	$0, -4(%rbp)
-	movl	$0, -4(%rbp)
-	jmp	.L2
-.L6:
+	movl	$0, -4(%rbp) # initializing the variables 
+	movl	$0, -4(%rbp) 
+	jmp	.outerloop
+
+.innerloop:
 	movl	$0, -8(%rbp)
-	jmp	.L3
-.L5:
+	jmp	.incinnerloop # call function to increment inneer loop
+
+.swap:                           # swap the two consecutive numbers if the condition is met
 	movl	-8(%rbp), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
@@ -30,7 +31,7 @@ sort:
 	addq	%rcx, %rax
 	movl	(%rax), %eax
 	cmpl	%eax, %edx
-	jle	.L4
+	jle	.addtoinnerloop  
 	movl	-8(%rbp), %eax
 	cltq
 	leaq	0(,%rax,4), %rdx
@@ -59,27 +60,28 @@ sort:
 	addq	%rax, %rdx
 	movl	-12(%rbp), %eax
 	movl	%eax, (%rdx)
-.L4:
+.addtoinnerloop:
 	addl	$1, -8(%rbp)
-.L3:
+
+.incinnerloop:
 	movl	-28(%rbp), %eax
 	subl	$1, %eax
 	cmpl	-8(%rbp), %eax
-	jg	.L5
+	jg	.swap # if the first element i.e a[j] is greater than a[j+1] , then swap the numbers , swap function is called
 	addl	$1, -4(%rbp)
-.L2:
+.outerloop:
 	movl	-28(%rbp), %eax
 	subl	$1, %eax
 	cmpl	-4(%rbp), %eax
-	jg	.L6
+	jg	.innerloop
 	nop
 	popq	%rbp
 	ret
 _start:      # _start is like main function in C
-	pushq	%rbp
+	pushq	%rbp   
 	movq	%rsp, %rbp
-	subq	$48, %rsp     #allocating space on stack for each integer in the                              array
-	movl	$116, -48(%rbp)
+	subq	$48, %rsp     #allocating space on stack for each integer in the array
+	movl	$116, -48(%rbp) # each in integer is 4 bytes, and the stack space is shifted by 4 bytes everytime an integer is pushed on to the stack
 	movl	$67, -44(%rbp)
 	movl	$69, -40(%rbp)
 	movl	$102, -36(%rbp)
@@ -88,13 +90,14 @@ _start:      # _start is like main function in C
 	movl	$111, -24(%rbp)
 	movl	$114, -20(%rbp)
 	movl	$65, -16(%rbp)
-	leaq	-48(%rbp), %rax
-	movl	$9, %esi
+	leaq	-48(%rbp), %rax 
+	movl	$9, %esi     # index pointer to indicate the size of the array, which is 9 here in this program
 	movq	%rax, %rdi
-	call	sort
-	movl	$0, -4(%rbp)
-	jmp	.L8
-.L9:
+	call	sort         # sort function is called
+	movl	$0, -4(%rbp) # intializing i for printing the integers after sort function is executed
+	jmp	.printarray  # for loop to print the sorted array is called
+
+.printtoscreen:
 	leaq	-48(%rbp), %rax
 	movl	-4(%rbp), %edx
 	movslq	%edx, %rdx
@@ -102,17 +105,18 @@ _start:      # _start is like main function in C
 	addq	%rdx, %rax
 	movl	$4, %edx
 	movq	%rax, %rsi
-	movl	$1, %edi     #syscall to print to the screen
-	mov 	$1, %rax
-	mov	$1, %rdi
+	movl	$1, %edi     
+	mov 	$1, %rax     # syscall for write
+	mov	$1, %rdi     #file handle 1 is stdout 
 	mov 	$4, %rdx
-	syscall	
-	addl	$1, -4(%rbp)
-.L8:
+	syscall			# invoke the operating system to write to the screen
+	addl	$1, -4(%rbp)    # increment after each number is printed in the array
+
+.printarray:
 	cmpl	$8, -4(%rbp)
-	jle	.L9
+	jle	.printtoscreen # function to print each element of the sorted array on the screen is called when i is less than 9(value specified for the static array)  
 	movl	$0, %eax
 	leave
 	mov	$60, %rax  #syscall to exit 
-	xor 	%rdi, %rdi
-	syscall
+	xor 	%rdi, %rdi    # exit code 0
+	syscall              # invoke the operating system to exit
