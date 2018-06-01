@@ -4,14 +4,13 @@ TODO Please edit the following information in your assignment
 
 - Name: Shruthi Kulkarni
 - How many hours did it take you to complete this assignment? : 24 hours 
-- Did you collaborate with any other students/TAs/Professors? met TA, Nakul for some calrifications
+- Did you collaborate with any other students/TAs/Professors? met TA, Nakul for some clarifications
 - Did you use any external resources? (Cite them below)
   - https://docs.oracle.com/cd/E19253-01/817-5477/817-5477.pdf
   - http://cs.lmu.edu/~ray/notes/nasmtutorial/
   - https://www.thegeekstuff.com/2010/03/debug-c-program-using-gdb
 - (Optional) What was your favorite part of the assignment?  ( exploring assembly language , in general)
-- (Optional) How would you improve the assignment? 
-
+- (Optional) How would you improve the assignment? implement using a better or more efficient algorithm
 
 # Introduction
 
