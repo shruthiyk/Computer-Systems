@@ -77,6 +77,7 @@ sort:
 	nop
 	popq	%rbp
 	ret
+
 _start:      # _start is like main function in C
 	pushq	%rbp   
 	movq	%rsp, %rbp
