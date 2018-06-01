@@ -194,12 +194,22 @@ It has been compiled with debugging symbols so you may investigate it. Answer th
 
 ## **TODO (Add your answers here)**
 
-1. What was the bug?  :  Segmentation fault in initialize_front() o
-2. What line did the bug occur?  on line 15 , head->data = 500
+1. What was the bug?  :  Segmentation fault in initialize_front() , null pointer error.
+2. What line did the bug occur?  on line 15 , head->data = 500, head->next = NULL
 3. What is the fix?
+// add node_t * next and then point the head->next to next. 
+node_t* initialize_front(){
 
+node_t* head= (node_t*)malloc(sizeof(node_t)) ;
+node_t*  next;
+head->data = 500;
+head->next = next ;
 
+return head;
 
+}
+
+compiles without any error( segmentation fault error is removed)
 ## (Bonus Part) Aside: Core dump
 
 In the Greg Law video, he begins to investigate a Core dump file. What exactly is a coredump?
