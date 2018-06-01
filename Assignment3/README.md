@@ -196,7 +196,8 @@ It has been compiled with debugging symbols so you may investigate it. Answer th
 1. What was the bug?  :  Segmentation fault in initialize_front() , null pointer error.
 2. What line did the bug occur?  on line 15 , head->data = 500, head->next = NULL
 3. What is the fix?
-// add node_t * next and then point the head->next to next. 
+// add node_t * next and then point the head->next to next in node_t* initialize_front()
+
 node_t* initialize_front(){
 
 node_t* head= (node_t*)malloc(sizeof(node_t)) ;
