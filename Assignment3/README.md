@@ -6,10 +6,11 @@ TODO Please edit the following information in your assignment
 - How many hours did it take you to complete this assignment? : 24 hours 
 - Did you collaborate with any other students/TAs/Professors? met TA, Nakul for some calrifications
 - Did you use any external resources? (Cite them below)
-  - 
-  - 
-- (Optional) What was your favorite part of the assignment?
-- (Optional) How would you improve the assignment?
+  - https://docs.oracle.com/cd/E19253-01/817-5477/817-5477.pdf
+  - http://cs.lmu.edu/~ray/notes/nasmtutorial/
+  - https://www.thegeekstuff.com/2010/03/debug-c-program-using-gdb
+- (Optional) What was your favorite part of the assignment?  ( exploring assembly language , in general)
+- (Optional) How would you improve the assignment? 
 
 
 # Introduction
@@ -193,9 +194,11 @@ It has been compiled with debugging symbols so you may investigate it. Answer th
 
 ## **TODO (Add your answers here)**
 
-1. What was the bug?
-2. What line did the bug occur?
+1. What was the bug?  :  Segmentation fault in initialize_front() o
+2. What line did the bug occur?  on line 15 , head->data = 500
 3. What is the fix?
+
+
 
 ## (Bonus Part) Aside: Core dump
 
