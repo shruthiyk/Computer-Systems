@@ -1,0 +1,71 @@
+==48137== Memcheck, a memory error detector
+==48137== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==48137== Using Valgrind-3.12.0 and LibVEX; rerun with -h for copyright info
+==48137== Command: ./TestAssignment2
+==48137== Parent PID: 48130
+==48137== 
+--48137-- 
+--48137-- Valgrind options:
+--48137--    --leak-check=full
+--48137--    --show-leak-kinds=all
+--48137--    --track-origins=yes
+--48137--    --log-file=monorepo-shruthiyk-Assignment2-valgrind.log
+--48137--    --verbose
+--48137-- Contents of /proc/version:
+--48137--   Linux version 3.10.0-693.11.1.el7.x86_64 (builder@kbuilder.dev.centos.org) (gcc version 4.8.5 20150623 (Red Hat 4.8.5-16) (GCC) ) #1 SMP Mon Dec 4 23:52:40 UTC 2017
+--48137-- 
+--48137-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2-bmi
+--48137-- Page sizes: currently 4096, max supported 4096
+--48137-- Valgrind library directory: /usr/lib64/valgrind
+--48137-- Reading syms from /home/vrnakul/CS5600_monorepos/monorepo-shruthiyk/Assignment2/TestAssignment2
+--48137-- Reading syms from /usr/lib64/ld-2.17.so
+--48137-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
+--48137--    object doesn't have a symbol table
+--48137--    object doesn't have a dynamic symbol table
+--48137-- Scheduler: using generic scheduler lock implementation.
+--48137-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+==48137== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-48137-by-vrnakul-on-login-students.ccs.neu.edu
+==48137== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-48137-by-vrnakul-on-login-students.ccs.neu.edu
+==48137== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-48137-by-vrnakul-on-login-students.ccs.neu.edu
+==48137== 
+==48137== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==48137== don't want to do, unless you know exactly what you're doing,
+==48137== or are doing some strange experiment):
+==48137==   /usr/lib64/valgrind/../../bin/vgdb --pid=48137 ...command...
+==48137== 
+==48137== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==48137==   /path/to/gdb ./TestAssignment2
+==48137== and then give GDB the following command
+==48137==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=48137
+==48137== --pid is optional if only one valgrind process is running
+==48137== 
+--48137-- REDIR: 0x40192f0 (ld-linux-x86-64.so.2:strlen) redirected to 0x38058d51 (???)
+--48137-- REDIR: 0x40190c0 (ld-linux-x86-64.so.2:index) redirected to 0x38058d6b (???)
+--48137-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
+--48137-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
+==48137== WARNING: new redirection conflicts with existing -- ignoring it
+--48137--     old: 0x040192f0 (strlen              ) R-> (0000.0) 0x38058d51 ???
+--48137--     new: 0x040192f0 (strlen              ) R-> (2007.0) 0x04c2ca90 strlen
+--48137-- REDIR: 0x4019270 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c2dbe0 (strcmp)
+--48137-- REDIR: 0x4019e60 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c30c60 (mempcpy)
+--48137-- Reading syms from /usr/lib64/libc-2.17.so
+--48137-- REDIR: 0x4ebff80 (libc.so.6:strcasecmp) redirected to 0x4a247b0 (_vgnU_ifunc_wrapper)
+--48137-- REDIR: 0x4ebcd00 (libc.so.6:strnlen) redirected to 0x4a247b0 (_vgnU_ifunc_wrapper)
+--48137-- REDIR: 0x4ec2250 (libc.so.6:strncasecmp) redirected to 0x4a247b0 (_vgnU_ifunc_wrapper)
+--48137-- REDIR: 0x4ebf760 (libc.so.6:memset) redirected to 0x4a247b0 (_vgnU_ifunc_wrapper)
+--48137-- REDIR: 0x4ebf710 (libc.so.6:memcpy@GLIBC_2.2.5) redirected to 0x4a247b0 (_vgnU_ifunc_wrapper)
+--48137-- REDIR: 0x4ebe6f0 (libc.so.6:__GI_strrchr) redirected to 0x4c2c450 (__GI_strrchr)
+--48137-- REDIR: 0x4eb60c0 (libc.so.6:malloc) redirected to 0x4c29b5c (malloc)
+--48137-- REDIR: 0x4ec6210 (libc.so.6:strchrnul) redirected to 0x4c30780 (strchrnul)
+--48137-- REDIR: 0x4ebf930 (libc.so.6:__GI_mempcpy) redirected to 0x4c30990 (__GI_mempcpy)
+--48137-- REDIR: 0x4eb64c0 (libc.so.6:free) redirected to 0x4c2ac56 (free)
+--48137-- REDIR: 0x4ebcc20 (libc.so.6:__GI_strlen) redirected to 0x4c2c9f0 (__GI_strlen)
+==48137== 
+==48137== HEAP SUMMARY:
+==48137==     in use at exit: 0 bytes in 0 blocks
+==48137==   total heap usage: 12 allocs, 12 frees, 262,452 bytes allocated
+==48137== 
+==48137== All heap blocks were freed -- no leaks are possible
+==48137== 
+==48137== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==48137== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
