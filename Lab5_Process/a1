@@ -1,0 +1,50 @@
+#!/bin/bash
+#assignment 1 - Tutorial on using commands in a shell script 
+
+echo "Below is the list of files on the system"
+
+echo "-------------------------------------------"
+
+ls ~  # specify the respective path
+
+echo "-------------------------------------------"
+
+echo " Kindly enter the name of the owner whose files that you want to see: "
+
+read input
+
+find -user "$input" -ls
+
+echo " Do you want to see only the executable files? y/n" 
+
+read input2
+
+if [ "$input2" = "y" ] ; then
+
+#ls -F | grep '*$'
+
+find . -executable -print
+
+else
+
+exit
+
+fi
+
+echo "enter a file name to see the content: " 
+
+read filename
+
+        if [ -e "$filename" ] && [ -s "$filename" ] ; then
+
+        cat $filename
+
+        else
+	
+	echo "the file does not exists or is empty" 
+
+        fi
+
+
+
+

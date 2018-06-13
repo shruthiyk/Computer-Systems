@@ -10,12 +10,12 @@ int main()
 	myargv[0]="/bin/ls";
 	myargv[1]="-F";
 	myargv[2]=NULL;
-	myargv[3]="ifconfig"; 
+//	myargv[3]="ifconfig"; 
 	// Terminate the argument list
 	
 	if(fork()==0){
 	// Executes command from child then terminates our process
-	execve(myargv[3],myargv,NULL);
+	execve(myargv[0],myargv,NULL);
 	printf("Child: Should never get here\n");
 	exit(1);
 	} 		 								
