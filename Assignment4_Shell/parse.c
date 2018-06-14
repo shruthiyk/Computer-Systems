@@ -10,7 +10,7 @@ int main()
 char str[100]; // = "hello-hi-heu";
 printf(" Enter any string: ");
 scanf("%[^\n]%*c",str);
-char *token =  strtok(str,"-");
+char *token =  strtok(str,"|");
 
 	while(token!= NULL)
 	{	
