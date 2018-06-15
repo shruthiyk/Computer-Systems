@@ -1,0 +1,28 @@
+// Implement a working parser in this file that splits text into individual tokens.
+
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#define DELIMITERS '\t\n\|\a'
+
+int main()
+{
+
+char str[100];
+char delimiters[] ="\t\n\v\f\r";
+char *token;
+
+printf(" Enter any string: ");
+scanf("%[^\n]%*c",str);
+for(token = strtok(str,delimiters); token!=NULL; 
+token = strtok(NULL, delimiters))
+printf("%s", token);
+
+return 0;
+
+
+}
+
+
+
+
