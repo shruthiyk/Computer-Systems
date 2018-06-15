@@ -48,8 +48,6 @@ char *r_buffer  = malloc(sizeof(char) * buffer_size);
 		}
  	position++;
 
-
-
 	if(position >= buffer_size)
 	{
 	buffer_size += READ_BUFFER_SIZE;
