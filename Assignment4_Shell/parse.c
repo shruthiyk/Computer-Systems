@@ -1,6 +1,57 @@
 // Implement a working parser in this file that splits text into individual tokens.
 
 #include<stdio.h>
-#include<string.h>
 #include<stdlib.h>
+#include<string.h>
+#include<unistd.h>
+#include<signal.h>
+#include<sys/wait.h>
+
+#define READ_BUFFER_SIZE 80
+#define TOKEN_BUFFER_SIZE 64
+#define DELIMITERS " \t\n\a\r\v"
+
+char *read_line(void)
+{
+
+char *line = NULL; 
+
+size_t buffer_size = 0;
+
+getline(&line,&buffer_size ,stdin);
+
+return line;
+
+}
+
+int main (int agrc , char **argv)
+{
+
+char *line;
+char *token;
+
+line = read_line();
+
+token = strtok(line, DELIMITERS);
+
+while(token != NULL)
+{
+        printf(" %s\n", token);
+        token=strtok(NULL,DELIMITERS);
+}
+
+//return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -97,7 +97,7 @@ char **t_size = malloc(buffer_size * sizeof(char*));
         }
 
 
-	token = strtok(NULL,TOKEN_BUFFER_SIZE);
+	token = strtok(NULL,DELIMITERS);
         }
 
 	t_size[position] = NULL ;
@@ -246,7 +246,6 @@ if (strcmp(args[0], builtin_str[i]) == 0)
 
 // function for continous loop
 
-
 void loop()
 {
 char *line;
@@ -283,8 +282,13 @@ do {
 int main (int agrc , char **argv)
 {
 
+
+	signal(SIGINT,sigint_handler);
+	printf(" Press Ctrl+C to terminate\n");
+ 	while(1){
+
 // run an repl loop ie. read, evaluate, parse and loop again
 	loop();
-
+		}
 return 0;
 }
