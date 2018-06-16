@@ -8,7 +8,12 @@
 
 #define READ_BUFFER_SIZE 80
 #define TOKEN_BUFFER_SIZE 64
-#define DELIMITERS " \t\n\a\r\v"
+#define DELIMITERS " &\n"
+#define PIPE "|"
+#define WRITE_END 1 
+#define READ_END 0
+#define REDIRECTION1 <
+#define REDIRECTION2 >
 
 
 void sigint_handler(int sig)
@@ -48,6 +53,8 @@ char *r_buffer  = malloc(sizeof(char) * buffer_size);
 		}
  	position++;
 
+
+
 	if(position >= buffer_size)
 	{
 	buffer_size += READ_BUFFER_SIZE;
@@ -71,6 +78,7 @@ int position = 0;
 char *token;
 char **t_size = malloc(buffer_size * sizeof(char*));
 
+
 	if(!t_size)
 	{
 	fprintf(stderr,"memory allocation error\n");
@@ -78,8 +86,9 @@ char **t_size = malloc(buffer_size * sizeof(char*));
 	}
 
 	token = strtok(line, DELIMITERS);
+
 	while(token != NULL)
-	{	
+	{
 	t_size[position] = token;
 	position++;
 
@@ -89,11 +98,10 @@ char **t_size = malloc(buffer_size * sizeof(char*));
         t_size = realloc(t_size, buffer_size * sizeof(char*));
         if(!t_size)
                 {
-                        printf(" memory allocation error\n");
+                        printf("memory allocation error\n");
                         exit(EXIT_FAILURE);
                 }
         }
-
 
 	token = strtok(NULL,DELIMITERS);
         }
@@ -102,10 +110,34 @@ char **t_size = malloc(buffer_size * sizeof(char*));
 	return t_size;
 }
 
+// function to find pipe 
+
+
+int find_pipe(char* line , char **line_piped)
+{
+int i;
+for (i=0 ; i<2 ; i ++)
+{
+	line_piped[i] = strsep(&line , "|");
+	if (line_piped == NULL){
+		break;
+	}
+}
+
+if (line_piped[1] == NULL ){
+
+	return 0;   // return zero if pipe is not found 
+}else{
+
+	return 1;
+
+	}
+}
+
 
 // function to start the process
 
-int launch(char **args)
+int launch(char **args, int last_char_is_amp_and)
 {
 pid_t pid, wpid;
 
@@ -114,6 +146,10 @@ int status;
 pid = fork();
 if(pid == 0)
 {
+	if(last_char_is_amp_and){
+		// Piazaa post
+		setpgid(pid, 0);
+	}
 	// child process
 	if (execvp(args[0],args) == -1 )
 	{
@@ -129,11 +165,16 @@ else if(pid < 0)
 	}
 
 else {
-	do {
- 	wpid= waitpid(pid,&status,WUNTRACED);
-	} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-}
+	
 
+	// Background Process Checking
+	if(last_char_is_amp_and == 0){
+		// If last character is not ampersand then teh parent will wait
+		do {
+ 			wpid= waitpid(pid,&status,WUNTRACED);
+		   } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+	}
+}
 return 1;
 }
 
@@ -148,14 +189,14 @@ int shell_exit(char **args);
 char *builtin_str[] = {
 "cd", 
 "help",
-"exit"
+"exit",
 };
 
 
 int (*builtin_func[])(char **) = {
 &cd,
 &help,
-&exit
+&exit,
 };
 
 int num_builtins() {
@@ -166,14 +207,12 @@ int num_builtins() {
 
 int cd(char **args)
 {
-
 if(args[1] == NULL )
 {
 	printf(" error \n ");
 }
 
 else {
-
 if(chdir(args[1]) != 0)
 {
 
@@ -182,10 +221,7 @@ if(chdir(args[1]) != 0)
 }
 
 return 1;
-
 }
-
-
 
 // function for help
 int help(char **args)
@@ -217,7 +253,28 @@ int shell_exit(char **args)
 
 // execute function 
 
-int execute(char **args)
+
+//function to find last character 
+
+int find_lastcharacter(char* line)
+{
+
+if(line[(strlen(line)-1)] == '&')
+{
+
+printf(" process is running in the background\n");
+
+return 1;
+}
+
+return 0;
+}
+
+
+
+
+
+int execute(char **args, int last_char_amp_and)
 {
 
 int i;
@@ -237,8 +294,71 @@ if (strcmp(args[0], builtin_str[i]) == 0)
 
 }
 
-        return launch(args);
+        return launch(args, last_char_amp_and);
 
+}
+
+
+// execute pipe
+
+int execute_pipe(char** args1,char** abc,int is_last_character_amp_and)
+{
+
+pid_t pid;
+int fd[2];
+pipe(fd);
+pid = fork();
+
+if(pid == 0)
+{
+
+	dup2(fd[WRITE_END],STDOUT_FILENO);
+	close(fd[READ_END]);
+	close(fd[WRITE_END]);
+	if(execvp(args1[0],args1)<0)
+	{
+	perror("Error in execution\n");
+	}
+
+}
+
+else 
+{
+pid= fork();
+if(pid == 0){
+	
+	dup2(fd[READ_END],STDIN_FILENO);
+	close(fd[WRITE_END]);
+	close(fd[READ_END]);
+	if (execvp(abc[0],abc)<0)
+	{
+	perror("Error in execution\n");
+	}
+	}else {
+
+		if(is_last_character_amp_and == 0)
+		{
+		
+		int status;
+		close(fd[READ_END]);
+		close(fd[WRITE_END]);
+		waitpid(pid, &status,0);
+		}
+	}
+
+}
+
+return 1;
+}
+
+int execute_export(char** export_arr){
+
+	// Call setenv
+	printf("Calling this function\n");
+	printf("1st element = %s\n", export_arr[1]);
+	printf("3rd element = s \n", export_arr[3]);
+	setenv(export_arr[1], export_arr[3], 1);
+	return 1;
 }
 
 
@@ -257,8 +377,47 @@ do {
 	printf("mini-shell>");
 
 // read each line i.e the command that is typed in by the user
+	char duplicate_inp[80];
 
 	line = read_line();
+	strcpy(duplicate_inp, line);
+
+// check for & (to identify whether the user entered the command to run in the background)
+        int is_last_character_amp_and;
+	is_last_character_amp_and = find_lastcharacter(line);
+
+// to run the process in the background
+
+// check for pipe 
+// declare an array to hold the split array
+
+	char *p_array[80];
+
+	int is_pipe_present;
+	is_pipe_present = find_pipe(line,p_array);
+//	printf("PARSED %s\n", parse(duplicate_inp)[0]); 
+	if(strcmp("export", parse(duplicate_inp)[0]) == 0)
+	{
+	 //printf("Coming here\n");
+	char** export_arr = parse(line);
+	printf("1st = %s\n", export_arr[1]);
+	printf("2nd = %s\n", export_arr[3]);  
+	state = execute_export(export_arr);
+
+	}
+	else if(is_pipe_present)
+	{
+// split into two arrays before parsing 
+//p_array[0] and p_array[1]
+
+	char** args1 = parse(p_array[0]);
+	char** args2 = parse(p_array[1]);
+//printf("%s\n", args1[0]);
+	state = execute_pipe(args1, args2, is_last_character_amp_and);
+	free(line);
+	}
+
+	else {
 
 // agrs is an array of strings 
 
@@ -266,22 +425,24 @@ do {
 
 //to execute and return the state of the system
 
-	state =execute(args);
+	state = execute(args, is_last_character_amp_and);
 
 // free the memory allocated 
 
 	free(line);
 	free(args);
+}
 
 } while(state);
 }
 
 
-int main (int agrc , char **argv)
+int main (int agrc , char **argv[])
 {
-
-
 	signal(SIGINT,sigint_handler);
+
+	// Handle zombie
+	signal(SIGCHLD, SIG_IGN);
 	printf(" Press Ctrl+C to terminate\n");
  	while(1){
 

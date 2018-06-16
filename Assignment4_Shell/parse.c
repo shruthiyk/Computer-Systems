@@ -7,9 +7,7 @@
 #include<signal.h>
 #include<sys/wait.h>
 
-#define READ_BUFFER_SIZE 80
-#define TOKEN_BUFFER_SIZE 64
-#define DELIMITERS " \t\n\a\r\v"
+#define DELIMITERS " |\n"
 
 char *read_line(void)
 {
@@ -30,8 +28,10 @@ int main (int agrc , char **argv)
 char *line;
 char *token;
 
+printf(" Enter any string or set of strings/characters: \n ");
+//printf("Hello World\n");
 line = read_line();
-
+//printf("Line is %s\n", line);
 token = strtok(line, DELIMITERS);
 
 while(token != NULL)
