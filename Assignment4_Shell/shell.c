@@ -1,4 +1,6 @@
 // Modify this file for your assignment
+// program to implement a mini shell
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -6,21 +8,23 @@
 #include<sys/wait.h>
 #include<signal.h>
 
-#define READ_BUFFER_SIZE 80
+#define READ_BUFFER_SIZE 80    // macro to limit the input size of the shell to 80
 #define TOKEN_BUFFER_SIZE 64
-#define DELIMITERS " &\n"
-#define PIPE "|"
+#define DELIMITERS " &\n"   //macro to define & in order to run the program in background when the user specifies "&" in the input command
+#define PIPE "|"   // macro to define pipe as delimiter 
 #define WRITE_END 1 
 #define READ_END 0
 #define REDIRECTION1 <
 #define REDIRECTION2 >
 
 
+// function for signal handling( to identify Ctrl+C as an interrupt to exit the mini-shell
 void sigint_handler(int sig)
 {
 	write(1,"mini-shell terminated\n",80);
 	exit(0);
 }
+
 
 // function to read line/command entered by the user
 
@@ -49,14 +53,17 @@ char *r_buffer  = malloc(sizeof(char) * buffer_size);
 		}
 
 		else {
+
 		r_buffer[position] = character ;
+
 		}
- 	position++;
+ 	position++;    // increment after reading each character 
 
 
-
+	// if position crosses the buffer limit , show memory allocation error
 	if(position >= buffer_size)
 	{
+
 	buffer_size += READ_BUFFER_SIZE;
 	r_buffer = realloc(r_buffer, buffer_size);
 	if(!r_buffer)
@@ -85,17 +92,22 @@ char **t_size = malloc(buffer_size * sizeof(char*));
 	exit(EXIT_FAILURE);
 	}
 
-	token = strtok(line, DELIMITERS);
+	token = strtok(line, DELIMITERS);   // strtok to check for the delimiter and to remove them 
 
+	// execute while token is not null yet
 	while(token != NULL)
 	{
+
 	t_size[position] = token;
 	position++;
 
+	// check whether token buffer size crosses the specified limit
 	if(position >= buffer_size)
         {
+
         buffer_size += TOKEN_BUFFER_SIZE;
         t_size = realloc(t_size, buffer_size * sizeof(char*));
+
         if(!t_size)
                 {
                         printf("memory allocation error\n");
@@ -111,14 +123,14 @@ char **t_size = malloc(buffer_size * sizeof(char*));
 }
 
 // function to find pipe 
-
+// and return 1 if pipe is found , else 0 if not  to check for pipe in execute function
 
 int find_pipe(char* line , char **line_piped)
 {
 int i;
 for (i=0 ; i<2 ; i ++)
 {
-	line_piped[i] = strsep(&line , "|");
+	line_piped[i] = strsep(&line , "|");   // strsep to  extract token "|" from the line 
 	if (line_piped == NULL){
 		break;
 	}
@@ -147,7 +159,7 @@ pid = fork();
 if(pid == 0)
 {
 	if(last_char_is_amp_and){
-		// Piazaa post
+		
 		setpgid(pid, 0);
 	}
 	// child process
@@ -169,7 +181,7 @@ else {
 
 	// Background Process Checking
 	if(last_char_is_amp_and == 0){
-		// If last character is not ampersand then teh parent will wait
+		// If last character is not ampersand then the parent will wait
 		do {
  			wpid= waitpid(pid,&status,WUNTRACED);
 		   } while (!WIFEXITED(status) && !WIFSIGNALED(status));
@@ -224,10 +236,11 @@ return 1;
 }
 
 // function for help
+
 int help(char **args)
 {
 int i;
-printf(" following are the builtin commands");
+printf("the following are the builtin commands:\n");
 for (i = 0; i< num_builtins() ; i++)
 {
 
@@ -235,7 +248,7 @@ for (i = 0; i< num_builtins() ; i++)
 
 }
 
-printf(" see the man page for more information\n");
+printf(" see man pages for more details\n ");
 return 1;
 
 }
@@ -247,14 +260,10 @@ int shell_exit(char **args)
 {
 
 	return 0;
-
-
 }
 
-// execute function 
 
-
-//function to find last character 
+//function to find last character and check whether it's "&" 
 
 int find_lastcharacter(char* line)
 {
@@ -271,8 +280,7 @@ return 0;
 }
 
 
-
-
+//function to execute the command provided by the user
 
 int execute(char **args, int last_char_amp_and)
 {
@@ -299,7 +307,7 @@ if (strcmp(args[0], builtin_str[i]) == 0)
 }
 
 
-// execute pipe
+// function to  execute when user provides "|" in the command
 
 int execute_pipe(char** args1,char** abc,int is_last_character_amp_and)
 {
@@ -351,18 +359,20 @@ if(pid == 0){
 return 1;
 }
 
+// function to implement the built-in command export
+
 int execute_export(char** export_arr){
 
 	// Call setenv
-	printf("Calling this function\n");
-	printf("1st element = %s\n", export_arr[1]);
-	printf("3rd element = s \n", export_arr[3]);
+//	printf("Calling this function\n");
+//	printf("1st element = %s\n", export_arr[1]);
+//	printf("3rd element = s \n", export_arr[3]);
 	setenv(export_arr[1], export_arr[3], 1);
 	return 1;
 }
 
 
-// function for continous loop
+// function for continous loop to call thr repl (read, evaluate  , print, loop)
 
 void loop()
 {
@@ -400,19 +410,18 @@ do {
 	{
 	 //printf("Coming here\n");
 	char** export_arr = parse(line);
-	printf("1st = %s\n", export_arr[1]);
-	printf("2nd = %s\n", export_arr[3]);  
+//	printf("1st = %s\n", export_arr[1]);
+//	printf("2nd = %s\n", export_arr[3]);  
 	state = execute_export(export_arr);
 
 	}
 	else if(is_pipe_present)
 	{
 // split into two arrays before parsing 
-//p_array[0] and p_array[1]
+// p_array[0] and p_array[1]
 
 	char** args1 = parse(p_array[0]);
 	char** args2 = parse(p_array[1]);
-//printf("%s\n", args1[0]);
 	state = execute_pipe(args1, args2, is_last_character_amp_and);
 	free(line);
 	}
@@ -423,7 +432,7 @@ do {
 
 	args = parse(line);
 
-//to execute and return the state of the system
+// to execute and return the state of the system
 
 	state = execute(args, is_last_character_amp_and);
 
