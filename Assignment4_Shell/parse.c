@@ -29,9 +29,9 @@ char *line;
 char *token;
 
 printf(" Enter any string or set of strings/characters: \n ");
-//printf("Hello World\n");
 line = read_line();
-//printf("Line is %s\n", line);
+
+// strtok to identify the token
 token = strtok(line, DELIMITERS);
 
 while(token != NULL)
