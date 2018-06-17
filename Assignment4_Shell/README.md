@@ -9,9 +9,11 @@ TODO Please edit the following information in your assignment
   - https://brennan.io/2015/01/16/write-a-shell-in-c/
   - https://stackoverflow.com/questions/2596072/checking-last-char-of-string-in-c
   - https://www.geeksforgeeks.org/making-linux-shell-c/
+  - https://stackoverflow.com/questions/6718272/c-exec-fork-defunct-processes
+  - https://linux.die.net/man/5/exports
   
-- (Optional) What was your favorite part of the assignment?
-- (Optional) How would you improve the assignment?
+- (Optional) What was your favorite part of the assignment? all of it
+- (Optional) How would you improve the assignment?  handling corner cases 
 
 
 # Logistics
@@ -157,16 +159,35 @@ NAME:
 export
 
 SYNOPSIS: 
-
+export command is used to set an new environment variable. 
+it sets the export attributes for shell variables
 
 
 DESCRIPTION:
 
 *Write a longer description of what he command does*
+Syntax and the optioins are as follows
+Syntax
+      export [-fn] [-p] [name[=value]]
+
+Options
+      -f   The names refer to shell functions; 
+           otherwise the names refer to shell variables
+      -n   No longer mark each name for export.
+      -p   Display output in a form that can be reused as input. 
+
+export takes in the name of the variable and the value that needs to be assigned to it.
 
 NOTES:
 
 *Enter two or three sentences (minimum) in how you implemented the built-in command.*
+
+ int execute_export (char** export_arr) function is called to implement export function
+ 1. the setenv is used in the function , 
+    setenv adds or changes the value of environment variable. 
+ 2. in the loop() we check whether the line has export, i.e inp[0] and if yes, execute_import is called.
+ 3. here , export[2], is skipped as it is space, and export[3] is considered and the variable is set to as per the given input.
+ 
 
 -----------------------------------------------------
 
