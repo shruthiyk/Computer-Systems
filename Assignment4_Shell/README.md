@@ -2,12 +2,14 @@
 
 TODO Please edit the following information in your assignment
 
-- Name:
-- How many hours did it take you to complete this assignment?
-- Did you collaborate with any other students/TAs/Professors?
+- Name:  Shruthi Y.Kulkarni
+- How many hours did it take you to complete this assignment? 30 hours
+- Did you collaborate with any other students/TAs/Professors?  none
 - Did you use any external resources? (Cite them below)
-  - tbd
-  - tbd
+  - https://brennan.io/2015/01/16/write-a-shell-in-c/
+  - https://stackoverflow.com/questions/2596072/checking-last-char-of-string-in-c
+  - https://www.geeksforgeeks.org/making-linux-shell-c/
+  
 - (Optional) What was your favorite part of the assignment?
 - (Optional) How would you improve the assignment?
 
@@ -152,11 +154,11 @@ At a high level, implementing mini-shell takes the following components:
 -----------------------------------------------------
 NAME: 
 
-*edit me*
+export
 
 SYNOPSIS: 
 
-*edit me and add in a short description of the command and its usage*
+
 
 DESCRIPTION:
 
