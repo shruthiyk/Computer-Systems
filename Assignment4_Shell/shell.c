@@ -1,5 +1,5 @@
 // Modify this file for your assignment
-// program to implement a mini shell
+// program to implement a mini-shell
 
 #include<stdio.h>
 #include<stdlib.h>
