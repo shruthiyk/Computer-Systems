@@ -21,7 +21,7 @@
 // function for signal handling( to identify Ctrl+C as an interrupt to exit the mini-shell
 void sigint_handler(int sig)
 {
-	write(1,"mini-shell terminated\n",80);
+	printf("mini-shell terminated\n");
 	exit(0);
 }
 
@@ -201,14 +201,14 @@ int shell_exit(char **args);
 char *builtin_str[] = {
 "cd", 
 "help",
-"exit",
+"exit"
 };
 
 
 int (*builtin_func[])(char **) = {
 &cd,
 &help,
-&exit,
+&exit
 };
 
 int num_builtins() {
@@ -267,7 +267,7 @@ int shell_exit(char **args)
 
 int find_lastcharacter(char* line)
 {
-
+//printf("COMING INTO FIND_LAST CHAR\n");
 if(line[(strlen(line)-1)] == '&')
 {
 
@@ -284,7 +284,7 @@ return 0;
 
 int execute(char **args, int last_char_amp_and)
 {
-
+//printf("ENTER WORKING HERE\n");
 int i;
 if(args[0] == NULL )
 {
@@ -390,20 +390,21 @@ do {
 	char duplicate_inp[80];
 
 	line = read_line();
-	strcpy(duplicate_inp, line);
+	//strcpy(duplicate_inp, line);
+	if(strlen(line) > 0){
+		strcpy(duplicate_inp, line);
+		// check for & (to identify whether the user entered the command to run in the background)
+        	int is_last_character_amp_and;
+		is_last_character_amp_and = find_lastcharacter(line);
 
-// check for & (to identify whether the user entered the command to run in the background)
-        int is_last_character_amp_and;
-	is_last_character_amp_and = find_lastcharacter(line);
+		// to run the process in the background
 
-// to run the process in the background
+		// check for pipe 
+		// declare an array to hold the split array
 
-// check for pipe 
-// declare an array to hold the split array
+		char *p_array[80];
 
-	char *p_array[80];
-
-	int is_pipe_present;
+		int is_pipe_present;
 	is_pipe_present = find_pipe(line,p_array);
 //	printf("PARSED %s\n", parse(duplicate_inp)[0]); 
 	if(strcmp("export", parse(duplicate_inp)[0]) == 0)
@@ -440,6 +441,7 @@ do {
 
 	free(line);
 	free(args);
+	}
 }
 
 } while(state);
