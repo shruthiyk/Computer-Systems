@@ -15,6 +15,8 @@ Take a moment to read the Cexcerpt.pdf (2 pages ~5 minutes reading) to get a bas
 **Discuss** with your partner and write why you think `typedef long Align` was used. 
 
 **Write a 1-2 sentence answer here:**
+When we use malloc, we have to ensure that the storage returned is aligned properly for the objects to be stored in it, that is, that datatypes of certain sizes are stored at addresses of similar sizes. Some machines have the restrictive data type as int or long. By defining an union that consists of the head structure and the Align type, we are forcing the alignment on the basis of long as a worst-case boundary.
+
 
 ## Allocator building blocks
 
@@ -53,6 +55,11 @@ What do you think mlock is good for? This article discusses some of the tradeoff
 **Discuss** with your partner.
 
 **Write a 1-2 sentence answer here:**
+mlock() is used to lock one or more pages of memory into the RAM, preventing that memory from being swapped. One of the use cases for using mlock or mlockall (this locks all the pages of the memory to the RAM), as described in the link above is to lock sensitive decrypted data or passwords in memory. One extra example that I could think of where mlock might be used would be when we do a 'sudo' command. Once we perform a sudo command and provide the password once, we are not requested for the password if we do another 'sudo' command. It leads me to believe that the page containing the password might have been locked in memory for a certain period of time after we first provide it. 
+
+Similarly, mlock can be used to lock any page that might be deemed useful by us for a process. But the drawbacks are that we might not necessarily know which page has what information. So, we could use the mlockall() function. This would lock all the pages to memory. This too has a major drawback in the sense that these pages will not be able to be swapped and some other process's pages might be swapped our, hindering it's work, and making the process slow. 
+
+While mlock and mlockall have their advantages, their usage and consequences after usage must be considered before implementation
 
 ### The simplest memory allocator
 
@@ -91,6 +98,19 @@ However, the problem with this allocator is that we do not have any notion over 
 **Discuss** with your partner what data structures you might use to keep track of memory. Record at least one below, but try to think of at least two in your discussion.
 
 **Write a 1-2 sentence answer here:**
+We could store the dynamically allocated memory in the form of a structure as below
+
+struct dynaMemory
+{
+    void* address;   // This will hold the address of the first block allocated
+    int blocks;          // This will be the number of blocks that we requested to be allocated
+    int sizeOfBlock; // We can use this to see the size of each block (int/ char/ long ) etc
+    int free;              // We can keep track of how many blocks were unused using this
+    int allocated;      // We can keep track of how many blocks are used using this
+    void* nextFree;  // We can store a pointer to the next block that is unused using this pointer.
+}
+
+We would just have to create an object of the above structure and assign it the necessary information during allocation. This can be done by writing a function which allocates memory based on the user's request and returns an object of this structure with the necessary details assigned to it 
 
 ## Lab Deliverable
 
