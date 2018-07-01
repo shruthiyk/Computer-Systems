@@ -30,17 +30,17 @@ char instructionCache[ADDRESSES][BITWIDTH+1];
 int PC = 0;				
 
 // Attributes of our cache
-#define E  1 // Number of cachelines. 1 cacheline in each of our 4 sets.
+#define E  4 // Number of cachelines. 1 cacheline in each of our 4 sets.
 #define B  2 // Data block bits B = 2^b. 2 for example with 16 bit addresses (8 bytes per block)
 #define S  4 // Number of cache sets. S=2^s. By default, start with 4.
 
 // Some helper variables for the range of bits to collect to determine
 // the cache set.
 const int cacheLineOffsetStart = 0;
-const int cacheLineOffsetStop = 0;
+const int cacheLineOffsetStop = 1;
 
-const int cacheSetOffsetStart = 1;
-const int cacheSetOffsetStop = 2;
+const int cacheSetOffsetStart = 2;
+const int cacheSetOffsetStop = 3;
 
 const int tagStart = 3;
 
