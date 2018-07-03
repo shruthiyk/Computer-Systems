@@ -64,6 +64,20 @@ int totalLatency =0;	// How fast or slow is our system
 // =============== The Game ================
 
 
+// implementing FIFO policy
+//
+
+int s0cacheArray[] = {0, 0, 0, 0};
+int s1cacheArray[] = {0, 0, 0, 0};
+int s2cacheArray[] = {0, 0, 0, 0};
+int s3cacheArray[] = {0, 0, 0, 0};
+
+int s0Counter = 0;
+int s1Counter = 0;
+int s2Counter = 0;
+int s3Counter = 0;
+
+
 // This function loads a trace file that has been
 // previously generated.
 // Trace files consist of binary numbers which
@@ -148,6 +162,103 @@ void incrementCacheHit(){
 }
 
 
+void printArray(int s){
+int i;
+if(s == 0){
+	for( i = 0 ; i<4 ;i++)
+	{
+		printf("%d",s0cacheArray[i]);
+		printf("");
+	}
+	}
+else if(s == 1){
+	for(i = 0; i < 4; i++){
+		printf("%d",s1cacheArray[i]);
+		printf(" ");
+	}
+	}
+else if(s == 2){
+        for(i = 0; i < 4; i++){
+        	printf("%d",s2cacheArray[i]);
+        	printf(" ");
+        }
+        }
+else if(s == 3){
+        for(i = 0; i < 4; i++){
+        	printf("%d",s3cacheArray[i]);
+        	printf(" ");
+        }
+        }
+
+}
+
+
+int findMinIndex(int cacheArr[], int cacheLen){
+int cacheIndex = 0;
+int i,minEle;
+minEle = cacheArr[0];
+for( i = 0;i < cacheLen ; i++){
+	if(cacheArr[i] < minEle) {
+  		minEle = cacheArr[i];
+		cacheIndex = i;
+	}
+}
+
+return cacheIndex;
+
+}
+
+
+void updateCacheArray(int s , int e){
+if(s == 0) {
+	s0cacheArray[e] = s0Counter;
+} else if( s ==1 ) {
+	s1cacheArray[e] = s0Counter;
+}
+else if( s == 2 ) {
+        s2cacheArray[e] = s0Counter;
+}
+else {
+        s3cacheArray[e] = s0Counter;
+}
+}
+
+
+void updateCacheCount( int s){
+	if(s == 0) {
+	s0Counter++;
+	}
+	else if(s == 1) {
+	s1Counter++;
+	}	
+	else if(s == 2) {
+	s2Counter++;
+	}
+	else {
+	s3Counter++;
+	}
+}
+
+
+int getLineToRemove( int s){
+if( s == 0 ){
+return findMinIndex(s0cacheArray ,4);
+}
+
+if( s == 1 ){
+return findMinIndex(s1cacheArray ,4);
+}
+if( s == 2 ){
+return findMinIndex(s2cacheArray ,4);
+}
+if( s == 3 ){
+return findMinIndex(s3cacheArray ,4);
+}
+}
+
+
+
+
 // Decide which index should be replaced in our cache.
 // And then perform the actual replacement.i
 // In our scheme, we are going to replace all of the blocks at once.
@@ -158,6 +269,13 @@ void ReplacementPolicy(){
 	int cacheSetIndex = binaryStringRangeToInt(instructionCache[PC],cacheSetOffsetStart,cacheSetOffsetStop);
 	// The cache is now occupied
 	cacheOccupied[cacheSetIndex][cacheLineIndex]=1;
+
+updateCacheCount(cacheSetIndex);
+updateCacheArray(cacheSetIndex,cacheLineIndex);
+
+printArray(cacheSetIndex);
+
+
 	// Copy in the string to the cache
 	strcpy(cacheSet[cacheSetIndex][cacheLineIndex],instructionCache[PC]);	// Allocates memory for our array
 	// Any time we are replacing in our cache, that is a cache miss!
@@ -179,6 +297,14 @@ void evictionPolicy(){
 		incrementCacheHit();
 	}else{
 		printf("Compulsary miss!\n");
+
+   int minCacheLineIndex = getLineToRemove(cacheSetIndex);
+   updateCacheCount(cacheSetIndex);
+   updateCacheArray(cacheSetIndex,minCacheLineIndex);
+
+   printArray(cacheSetIndex);
+   cacheOccupied[cacheSetIndex][minCacheLineIndex] = 1; 
+
 		// Cache miss and decide who to keep.
 		// In general, always swap in for a simple policy!	
 		strcpy(cacheSet[cacheSetIndex][cacheLineIndex],instructionCache[PC]);	// Allocates memory for our array
