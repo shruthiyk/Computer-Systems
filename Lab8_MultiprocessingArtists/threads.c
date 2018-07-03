@@ -1,13 +1,14 @@
 // Implement your part 2 solution here
 // gcc -lpthread threads.c -o threads
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include<pthread.h>
 #define NATHREADS 64
+
+int count = 0;
 
 void *thread_paint();
 pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER;
@@ -17,24 +18,14 @@ char colors[64][64*3];
 // Add your paint function here
 void *thread_paint()
 {
-	int pid= fork();
+
 	int i;
 	pthread_mutex_lock(&mutex1);
-	
-	if( pid> 0)
+	for(i = 0; i < NATHREADS * 3; ++i)
 	{
-	   int p = getpid();
-	
-	for(i = 0; i < NATHREADS; ++i)
-	{
-		printf("This is a child process\n");
-		printf("parent id is %d \n", p);
+		colors[count][i] = count;
 	}
-	}
-
-	else {
-	printf(" the artists exit");
-	}
+	count++;
 
 	pthread_mutex_unlock(&mutex1);
 }
@@ -58,22 +49,22 @@ void save()
 	fclose(fp);
 }
 
-main()
+int main()
 {
 
         pthread_t thread_id[NATHREADS];
 	int i, j ;
+
 	for(i =0; i < NATHREADS; i++)
 	{
 		pthread_create(&thread_id[i],NULL,thread_paint, NULL);
 	}
-	
-			for(j=0 ; j< NATHREADS ; j++)
-			{
-				pthread_join(thread_id[j], NULL);
-			}
-	
-	save();
 
-	exit(0);
+	for(j=0 ; j< NATHREADS ; j++)
+	{
+		pthread_join(thread_id[j], NULL);
+	}
+
+	save();
+	return 0;
 }
