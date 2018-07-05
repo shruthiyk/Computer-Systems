@@ -4,7 +4,7 @@
 //
 // All in one go run with: clang -std=c11 -lm simulator.c -o simulator && ./simulator realistic.txt
 //
-// This program imports a trace file 
+// This program imports a trace file
 // and tells us how many cache hits and misses
 // we get based on the policy functions you implement.
 //
@@ -22,12 +22,12 @@
 
 // =============== Our CPU ===============
 // This is where all of our instructions are loaded up into
-char instructionCache[ADDRESSES][BITWIDTH+1]; 
+char instructionCache[ADDRESSES][BITWIDTH+1];
 // This is our Program Counter which executes the next
 // instruction. In this case, it looks at our instruction Cache.
 // which for our (fictional) machine holds all the instructions
 // that will be executed.
-int PC = 0;				
+int PC = 0;
 
 // Attributes of our cache
 #define E  4 // Number of cachelines. 1 cacheline in each of our 4 sets.
@@ -64,13 +64,17 @@ int totalLatency =0;	// How fast or slow is our system
 // =============== The Game ================
 
 
-// implementing FIFO policy
-//
+// implementing FIFO/LRR (first-in,first-out/least-recently replaced) policy
+// FIFO replaces the oldest item in the cache favoring recetly loaded items to old items in the cache
+// initializing 4 sets of cache
 
 int s0cacheArray[] = {0, 0, 0, 0};
 int s1cacheArray[] = {0, 0, 0, 0};
 int s2cacheArray[] = {0, 0, 0, 0};
 int s3cacheArray[] = {0, 0, 0, 0};
+
+// initialize a counter for each set and set it to 0
+// each of this points to the line that will be replaced next and these counters are updated only on cache misses
 
 int s0Counter = 0;
 int s1Counter = 0;
@@ -93,7 +97,7 @@ void loadTrace(char* filename){
 		strcpy(instructionCache[pos],str);	// Allocates memory for our array
 		//printf("%d: %s",pos, instructionCache[pos]); // print out lines read in from file
 		++pos;
-	}		
+	}
 
 	fclose(fp);
 }
@@ -107,10 +111,10 @@ void drawCache(){
 	int cacheSetIndex = binaryStringRangeToInt(instructionCache[PC],cacheSetOffsetStart,cacheSetOffsetStop);
 	int tag = binaryStringRangeToInt(instructionCache[PC],cacheSetOffsetStop+1,BITWIDTH-1);
 
-	
+
 	printf("Hits: %d Misses: %d Total Latency: %d\n",cacheHit,cacheMisses,totalLatency);
 	printf("Instruction[%d] is executed\n",binaryStringToInt(instructionCache[PC],BITWIDTH+1));
-	
+
 	// Note that 'set' is the cache set
 	// Note that 'block' is the cache line.
 	// We assume all data is valid in this cache for simplicity.
@@ -161,37 +165,7 @@ void incrementCacheHit(){
 	totalLatency+=costOfCacheHit;
 }
 
-
-void printArray(int s){
-int i;
-if(s == 0){
-	for( i = 0 ; i<4 ;i++)
-	{
-		printf("%d",s0cacheArray[i]);
-		printf("");
-	}
-	}
-else if(s == 1){
-	for(i = 0; i < 4; i++){
-		printf("%d",s1cacheArray[i]);
-		printf(" ");
-	}
-	}
-else if(s == 2){
-        for(i = 0; i < 4; i++){
-        	printf("%d",s2cacheArray[i]);
-        	printf(" ");
-        }
-        }
-else if(s == 3){
-        for(i = 0; i < 4; i++){
-        	printf("%d",s3cacheArray[i]);
-        	printf(" ");
-        }
-        }
-
-}
-
+//
 
 int findMinIndex(int cacheArr[], int cacheLen){
 int cacheIndex = 0;
@@ -213,24 +187,24 @@ void updateCacheArray(int s , int e){
 if(s == 0) {
 	s0cacheArray[e] = s0Counter;
 } else if( s ==1 ) {
-	s1cacheArray[e] = s0Counter;
+	s1cacheArray[e] = s1Counter;
 }
 else if( s == 2 ) {
-        s2cacheArray[e] = s0Counter;
+        s2cacheArray[e] = s2Counter;
 }
 else {
-        s3cacheArray[e] = s0Counter;
+        s3cacheArray[e] = s3Counter;
 }
 }
 
-
+// incrementing each set
 void updateCacheCount( int s){
 	if(s == 0) {
 	s0Counter++;
 	}
 	else if(s == 1) {
 	s1Counter++;
-	}	
+	}
 	else if(s == 2) {
 	s2Counter++;
 	}
@@ -244,7 +218,6 @@ int getLineToRemove( int s){
 if( s == 0 ){
 return findMinIndex(s0cacheArray ,4);
 }
-
 if( s == 1 ){
 return findMinIndex(s1cacheArray ,4);
 }
@@ -270,48 +243,52 @@ void ReplacementPolicy(){
 	// The cache is now occupied
 	cacheOccupied[cacheSetIndex][cacheLineIndex]=1;
 
-updateCacheCount(cacheSetIndex);
-updateCacheArray(cacheSetIndex,cacheLineIndex);
-
-printArray(cacheSetIndex);
-
+	// call the function to update the cache count
+  updateCacheCount(cacheSetIndex);
+	// function to update the specific cache line in the specific cache set
+  updateCacheArray(cacheSetIndex,cacheLineIndex);
 
 	// Copy in the string to the cache
 	strcpy(cacheSet[cacheSetIndex][cacheLineIndex],instructionCache[PC]);	// Allocates memory for our array
 	// Any time we are replacing in our cache, that is a cache miss!
-	incrementCacheMiss();	
+	incrementCacheMiss();
 }
 
 // Decide whether an item is in the cache or not.
 // If an item needs to be evicted, the replacement policy is called
 // otherwise, we do not need to do any worj,
-void evictionPolicy(){	
+void evictionPolicy(){
 	// Figure out where to look in the cache based on the index.
 	int cacheLineIndex = binaryStringRangeToInt(instructionCache[PC],cacheLineOffsetStart,cacheLineOffsetStop);
 	int cacheSetIndex = binaryStringRangeToInt(instructionCache[PC],cacheSetOffsetStart,cacheSetOffsetStop);
+  int tag = binaryStringRangeToInt(instructionCache[PC], cacheSetOffsetStop+1,BITWIDTH-1);
 
-	// Great, if we have a cache Hit!
-	// Note that we only need to look at the 
-	if( strcmp(cacheSet[cacheSetIndex][cacheLineIndex],instructionCache[PC])==0){
-		// Update our scoreboard.
-		incrementCacheHit();
-	}else{
-		printf("Compulsary miss!\n");
+  int counter;
+	// lop through each set
+  for(counter = 0; counter < 4; counter++){
+    int innerTag = binaryStringRangeToInt(cacheSet[cacheSetIndex][counter], cacheSetOffsetStop+1, BITWIDTH-1);
+    if(innerTag == tag){
+			// if the tag is matched , it's a cache hit and thus increment the cachehit count
+      incrementCacheHit();
+      return;
+    }
+
+  }
+	 // it's a compulsary miss when the tag does not match the existing element in the cache
+	 printf("Compulsary miss!\n");
 
    int minCacheLineIndex = getLineToRemove(cacheSetIndex);
+	 // update the cache count
    updateCacheCount(cacheSetIndex);
+	 // update the cache array
    updateCacheArray(cacheSetIndex,minCacheLineIndex);
-
-   printArray(cacheSetIndex);
-   cacheOccupied[cacheSetIndex][minCacheLineIndex] = 1; 
+   cacheOccupied[cacheSetIndex][minCacheLineIndex] = 1;
 
 		// Cache miss and decide who to keep.
-		// In general, always swap in for a simple policy!	
-		strcpy(cacheSet[cacheSetIndex][cacheLineIndex],instructionCache[PC]);	// Allocates memory for our array
+		// In general, always swap in for a simple policy!
+		strcpy(cacheSet[cacheSetIndex][minCacheLineIndex],instructionCache[PC]);	// Allocates memory for our array
 		// Update our scoreboard.
 		incrementCacheMiss();
-	}
-
 }
 
 // check if cache is filled first.
@@ -321,10 +298,10 @@ void checkCache(){
 	// Figure out where to look in the cache based on the index.
 	int cacheLineIndex = binaryStringRangeToInt(instructionCache[PC],cacheLineOffsetStart,cacheLineOffsetStop);
 	int cacheSetIndex = binaryStringRangeToInt(instructionCache[PC],cacheSetOffsetStart,cacheSetOffsetStop);
-	
+
 	// If the cache is not occupied, it is a cache miss
 	if(cacheOccupied[cacheSetIndex][cacheLineIndex]==0){
-		printf("Cold Miss!\n");		
+		printf("Cold Miss!\n");
 		ReplacementPolicy();
 	}else if(cacheOccupied[cacheSetIndex][cacheLineIndex]==1){
 		evictionPolicy();
@@ -335,10 +312,10 @@ void checkCache(){
 
 int main(int argc, char **argv){
 
-	// Loads a programs execution. 
+	// Loads a programs execution.
 	// Ideally this would be happening one instruction at a time
 	// However, for our purposes, we have a 'trace' of a program
-	// That is, a captured execution of the addresses that were 
+	// That is, a captured execution of the addresses that were
 	// 'fetched' from the CPU.
 	loadTrace(argv[1]);
 
@@ -358,7 +335,7 @@ int main(int argc, char **argv){
 	// it will continue.
 	char run='y';
 
-	// We run our program until we run out of addresses to 
+	// We run our program until we run out of addresses to
 	// execute or the user terminates.
 	while((run=='y'|| run=='a') && PC < ADDRESSES){
 		printf("============================================================================\n\n");
