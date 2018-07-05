@@ -3,13 +3,20 @@
 TODO Please edit the following information in your assignment
 
 - Name:
-- How many hours did it take you to complete this assignment?
-- Did you collaborate with any other students/TAs/Professors?
+- How many hours did it take you to complete this assignment?  30 hours
+- Did you collaborate with any other students/TAs/Professors? -
 - Did you use any external resources? (Cite them below)
-  - tbd
-  - tbd
-- (Optional) What was your favorite part of the assignment?
-- (Optional) How would you improve the assignment?
+
+  - Memory Allocator : 
+  - https://arjunsreedharan.org/post/148675821737/write-a-simple-memory-allocator
+  - https://danluu.com/malloc-tutorial/
+  
+  - Cache Simulator 
+  - http://alumni.cs.ucr.edu/~yluo/cs161L/labs/node6.html
+  - https://stackoverflow.com/questions/6930899/lru-vs-fifo-vs-random/6931018
+  - http://www.ecs.umass.edu/ece/koren/architecture/RepPolicies/replacement_policy_simulator_help.htm
+- (Optional) What was your favorite part of the assignment? all the sections
+- (Optional) How would you improve the assignment? -
 
 
 # Logistics
