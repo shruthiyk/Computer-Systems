@@ -9,8 +9,8 @@ For the final project you are expected to have a functioning tool, application, 
 ** Fill this part out by July 3rd **
 
 Who will you be working with (Max of 3 members--working solo is fine if you choose)?
-  * Teammate 1: (Your name)
-  * Teammate 2: ?
+  * Teammate 1: Shruthi Kulkarni 
+  * Teammate 2: Amit Kulkarni
   * Teammate 3: ?
 
 If you are looking for team members, you can use this spreadsheet to get in contact with folks and make a pitch.
@@ -19,47 +19,56 @@ https://docs.google.com/spreadsheets/d/1Yg2_M6U9mx8hfAS10NH5fpNh-1u56QESIhnuEQGn
 
 ### In one sentence, describe your project.
 
-*Edit this example with your own*
+We are going to build a Linux Debugger using C/C++ as our programming language.
 
-*Example: We are going to build a profiling tool for monitoring the performance of C game applications*
 
 ### What is the minimum deliverable for this project?
 
-*Edit this example with your own bulleted list*
-
-*This should include a list of things with a brief description of features you think you need*
-
-*Example: We will build a binary instrumentation tool and instrument every C library function.*
+The debugger will have the following features:
+- Launch, halt and continue execution.
+- Breakpoints: We would be implementing software breakpoints that involve modifying the code on the fly.
+- Read from and write to registers and memory
+- Printing backtrace
+- Print current source location
+- Single Stepping Instructions
+- Handling Variables -> variables to be tracked and manipulated by our debugger
 
 ### What is the maximum deliverable for this project?
 
-*Edit this example with your own bulleted list*
+If possible we would like to add the following features to our debugger
+- Multi-threaded debugging support
+- Shared Library and Dynamic Loading Support - Debugger needs to know what shared libraries
+  have been loaded by the debuggee so that it can support setting of breakpoints, get source-level information
+  and symbols etc.
+- Try to implement a GUI using python's Tkinter library which will allow users to perform all the\
+  debugging operations
 
-*Example: In addition to the features above, we are going to build an interactive GUI that lets us pause the program while it is running, and investigate performance characteristics related to memory, the call stack, and threads.*
 
 ### What tools or environment will you be using?
+- C/C++ for building the debugger.
+- Python for building the GUI for the debugger.
+- Will be building the debugger for and testing it on CCIS machines
 
-*Edit this example with your own bulleted list*
-
-*Example: We will be using C11, Python for the GUI, and running our tests on Ubuntu Linux 16.04*
 
 ### What are your first step(s)?
 
-*Edit this with your own thoughts in about a paragraph*
+- Checkout how GDB works( https://www.cs.cmu.edu/~gilpin/tutorial/ )
+- The first step would be to write a simple program( such as a queue implementation)
+  and to perform various operations using gdb such as adding breakpoints, printing backtrace etc.
 
-*We will review slides from lecture X. We will then find some sample programs that we have the source code to, and make sure we compile them.*
 
 ### Find at least one related publication or tool and reference it here.
+- https://www.gnu.org/software/gdb/
+- https://blog.tartanllama.xyz/writing-a-linux-debugger-setup/
 
-*Edit this*
 
-*Telmetry Performance Visualization System is a similar tool: http://www.radgametools.com/telemetry.htm*
 
 ### What is the biggest problem you foresee or question you need to answer to get started?
 
-*Edit this with your own thoughts in about a paragraph*
-
-*I do not know anything about how accurate the timing functions are on my operating system. I worry it will be difficult to understand how other processes, my cpus architecture, and the operating system may affect both the accuracy and precision of our tool*
+- Need to understand the ELF format of binary/executable
+- Need to understand how symbol table works
+- Understand system calls such as ptrace
+- Need to understand assembly level registers operations if any are involved
 
 ### Instructor Feedback
 
