@@ -30,7 +30,13 @@ You might implement a policy that is 'least recently used (LRU)' or 'random' for
 
 For task two, write a paragraph describing why your cache replacement and eviction policy may be good in the real world. That is what workloads will it work well for.
 
- *enter a paragraph here*
+- Implemented FIFO cache replacement policy for the assignment.  
+- FIFO is better in time complexity as compared to LRU because only the first element that came in is popped
+  whereas in LRU , one needs to traverse through the entire data structure to find the lease recently used page. 
+- The first-in , fisrt-out page replacement algorithm is a low-overhead algorithm as it requires little bookkeeping on part of the    OS.The OS keeps track of all pages in the memory in the queue, with the most recent arrival at the back and the oldest in the front. 
+Hence it is economical. 
+- It is used in VAX/VMS operating system used for general-purpose computing with some modifications.
+
 
 ## Rubric
 
