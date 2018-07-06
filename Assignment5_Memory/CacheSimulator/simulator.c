@@ -165,7 +165,7 @@ void incrementCacheHit(){
 	totalLatency+=costOfCacheHit;
 }
 
-//
+// Find the index of teh minimum element in the array
 
 int findMinIndex(int cacheArr[], int cacheLen){
 int cacheIndex = 0;
@@ -182,7 +182,7 @@ return cacheIndex;
 
 }
 
-
+// Update each line in cache set with the respective counter
 void updateCacheArray(int s , int e){
 if(s == 0) {
 	s0cacheArray[e] = s0Counter;
@@ -197,7 +197,7 @@ else {
 }
 }
 
-// incrementing each set
+// incrementing each set counter
 void updateCacheCount( int s){
 	if(s == 0) {
 	s0Counter++;
@@ -213,7 +213,7 @@ void updateCacheCount( int s){
 	}
 }
 
-
+// Removed the oldest element
 int getLineToRemove( int s){
 if( s == 0 ){
 return findMinIndex(s0cacheArray ,4);
@@ -268,7 +268,7 @@ void evictionPolicy(){
   for(counter = 0; counter < 4; counter++){
     int innerTag = binaryStringRangeToInt(cacheSet[cacheSetIndex][counter], cacheSetOffsetStop+1, BITWIDTH-1);
     if(innerTag == tag){
-			// if the tag is matched , it's a cache hit and thus increment the cachehit count
+      // if the tag is matched , it's a cache hit and thus increment the cachehit count
       incrementCacheHit();
       return;
     }
