@@ -75,3 +75,5 @@ If possible we would like to add the following features to our debugger
 *Your instructor will write a short note here if this is an acceptable project.*
 
 *Your instructor will give you some range of the grade you can earn if you meet all of your deliverables.* e.g. [B+/A-/A]
+
+Perfect, I'll look forward to your evaluation. This project falls in the [B+/A-/A]. It will be worth providing some buggy C/C++ programs to show how your debugger works.
