@@ -2,8 +2,8 @@
 
 TODO Please edit the following information in your assignment
 
-- Name:
-- How many hours did it take you to complete this assignment?  30 hours
+- Name:Shruthi Kulkarni
+- How many hours did it take you to complete this assignment?  24 hours
 - Did you collaborate with any other students/TAs/Professors? -
 - Did you use any external resources? (Cite them below)
 
