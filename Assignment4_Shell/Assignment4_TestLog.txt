@@ -18,10 +18,10 @@ pipe command - success
 input redirection - success
 
 >>>>> Testing the output redirection <<<<<
-output redirection - success
+output redirection - failed
 
 >>>>> Testing the pipe with redirection <<<<<
-pipe with redirection - success
+pipe with redirection - failed
 
 >>>>> Testing the background <<<<<
 process sent to bg - success
@@ -36,6 +36,6 @@ shell alive before exit - success
 shell dead after exit - success
 
 ==================================================
-Test done - Passed: 14, Failed: 0
+Test done - Passed: 12, Failed: 2
 shell exit status: 160
 ==================================================
