@@ -7,12 +7,12 @@
 int main()
 {
 
-	int threads = 50 ; 
+	
 	int id ;
 
 	#pragma omp parallel 
 	{
-		threads = omp_get_num_threads();  // this gives the number of threads in the team
+		
 		id = omp_get_thread_num();   // give the thread id 
 		
 		#pragma omp for 
