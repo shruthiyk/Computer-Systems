@@ -7,14 +7,11 @@
 int main()
 {
 
-	
 	int id ;
-
 	#pragma omp parallel 
 	{
 		
 		id = omp_get_thread_num();   // give the thread id 
-		
 		#pragma omp for 
 		for( int n=0 ; n<10 ; ++n )
 		{
